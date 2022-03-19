@@ -1,0 +1,189 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-9 ">
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Thông tin hóa đơn</legend>
+        <div class="row">
+          <div class="col-xl-8 col-md-12 col-sm-12">
+            <div class="mb-3 position-relative">
+              <div class="w-100 d-inline-flex">
+                <label class="col-3 pl-0">Mã nhà cung cấp</label>
+                <select class="border-dark border-2 col-8  form-control-sm d-inline-block"
+                        (change)="choiceManufacturer($event)">
+                  <option value="-1">Chọn nhà cung cấp</option>
+                  <option *ngFor=" let manufacturer of manufacturers "
+                          [value]="manufacturer.manufacturerId"
+                         >{{manufacturer.manufacturerName}} </option>
+<!--                          [selected]="manufacturerForm.value.manufacturerCode == manufacturer.manufacturerCode? 'selected':''">{{manufacturer.manufacturerName}} </option>-->
+                </select>
+                <div class="col-1  pl-1 pr-0">
+                  <button data-toggle="modal" data-target="#addNewSupplier"
+                          type="button"
+                          class="btn-info w-100" (click)="openDialog()"><i class="fa fa-plus"
+                                                                           aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+            <div class="mb-3">
+              <div class="w-100 d-inline-flex">
+                <label class="col-3 pl-0">Tên nhà cung cấp</label>
+                <input class="form-control-sm border-dark w-100" type="text"
+                       readonly [value]="manufacturerName">
+              </div>
+
+            </div>
+            <div class="mb-3">
+              <div class="w-100 d-inline-flex">
+                <label class="col-3 pl-0">Địa chỉ</label>
+                <input class="form-control-sm border-dark w-100" type="text"
+                       readonly [value]="manufacturerAddress">
+              </div>
+
+            </div>
+            <div class="mb-3">
+              <div class="w-100 d-inline-flex">
+                <label class="col-3 pl-0">Ghi chú</label>
+                <textarea class="form-control border-dark border-2 w-100"
+                          id="exampleFormControlTextarea1" rows="3"
+                          readonly [value]="manufacturerNote"></textarea>
+              </div>
+              <small
+                *ngIf="form.get('manufacturer')?.errors"
+                class="d-block position-absolute text-danger pt-2 px-0">*Chọn nhà cũng cấp từ select</small>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-12 col-sm-12 ">
+            <div class="mb-3">
+              <div class="w-100 d-inline-flex">
+                <label class="col-xl-3 col-3 px-0">Số HĐ</label>
+                <div class="col-xl-9 col-12 px-0 d-flex">
+
+                  <input type="text" readonly
+                         class="form-control-sm text-secondary w-100"
+                         placeholder="" formControlName="importSystemCode">
+                </div>
+              </div>
+
+            </div>
+            <div class="mb-3 position-relative">
+              <div class="w-100 d-inline-flex">
+                <label class="col-xl-3 col-3 px-0">Số CT</label>
+                <div class="col-xl-9 col-12 px-0 d-flex">
+                  <input type="text" class="form-control-sm w-100 "
+                         placeholder="" formControlName="accountingVoucher">
+                </div>
+              </div>
+              <small
+                *ngIf="form.get('accountingVoucher')?.hasError('required') && form.get('accountingVoucher').touched"
+                class="d-block position-absolute text-danger pt-1 px-0">số chứng từ không được để trống </small>
+            </div>
+            <div class="mb-3 position-relative">
+              <div class="w-100 d-inline-flex">
+                <label class="col-xl-3 col-3 px-0">Ngày lập</label>
+                <div class="col-xl-9 col-12 px-0 d-flex">
+                  <input type="datetime-local" class="form-control-sm w-100" formControlName="invoiceDate">
+                </div>
+              </div>
+              <small
+                *ngIf="form.get('invoiceDate')?.hasError('required') && form.get('invoiceDate').touched"
+                class="d-block position-absolute text-danger pt-1 px-0">ngày lập không được để trống </small>
+              <small
+                *ngIf="form.get('invoiceDate')?.hasError('pattern') && form.get('invoiceDate').touched"
+                class="d-block position-absolute text-danger pt-1 px-0">ngày lập sai format</small>
+              <small
+                *ngIf="form.get('invoiceDate')?.hasError('invalidDate') && form.get('invoiceDate').touched"
+                class="d-block position-absolute text-danger pt-1 px-0">ngày lập đang lớn hơn ngày hiện tại</small>
+            </div>
+            <div class="mb-3">
+              <div class="w-100 d-inline-flex">
+                <label class="col-xl-3 col-3 px-0">Nhân viên</label>
+                <div class="col-xl-9 col-12 px-0 d-flex">
+                  <input type="text" class="form-control-sm text-secondary w-100"
+                         placeholder="" [value]="employee.employeeName">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-12 col-sm-12 col-lg-3 " formGroupName="payment">
+      <fieldset class="scheduler-border ">
+        <legend class="scheduler-border">Thanh toán</legend>
+        <div class="mb-3">
+          <div class="w-100 d-inline-flex">
+            <label class="col-6 pl-0">Tiền thuốc</label>
+            <input class="form-control-sm border-dark w-100" type="text"
+                   [value]="drugMoney  !== undefined ?( drugMoney| currency:'VND') : ''">
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="w-100 d-inline-flex">
+            <label class="col-6 pl-0">%Chiết khấu</label>
+            <input formControlName="discount" (keyup)="chargeTotalMoney()" class="form-control-sm border-dark w-100"
+                   type="text" maxlength="3">
+            <small
+              *ngIf="form.controls.payment.get('discount')?.hasError('pattern') && form.controls.payment.get('discount').touched"
+              class="d-block position-absolute text-danger col-4 px-0 pt-4">chiết khấu là số </small>
+            <small
+              *ngIf="form.controls.payment.get('discount')?.hasError('min') && form.controls.payment.get('discount').touched"
+              class="d-block position-absolute text-danger col-4 px-0 pt-4">chiết khấu không nhỏ hơn 0 </small>
+            <small
+              *ngIf="form.controls.payment.get('discount')?.hasError('max') && form.controls.payment.get('discount').touched"
+              class="d-block position-absolute text-danger col-4  px-0 pt-4">chiết khấu không lớn hơn 100 </small>
+            <small
+              *ngIf="form.controls.payment.get('discount')?.hasError('required') && form.controls.payment.get('discount').touched"
+              class="d-block position-absolute text-danger col-4 px-0  pt-4">chiết khấu không được trống</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="w-100 d-inline-flex">
+            <label class="col-6 pl-0">Tổng tiền</label>
+            <input
+                   [value]="totalMoney| currency:'VND'"
+                   class="form-control-sm border-dark w-100"
+                   type="text">
+            <small
+              *ngIf="form.controls.payment.get('totalMoney')?.hasError('required') && form.controls.payment.get('totalMoney').touched"
+              class="d-block position-absolute text-danger col-4 px-0 pt-4">tổng tiền không hợp lệ </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="w-100 d-inline-flex">
+            <label class="col-6 pl-0">Thanh toán</label>
+            <input   formControlName="prepayment" class="form-control-sm border-dark w-100" type="text">
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="w-100 d-inline-flex">
+            <label class="col-6 pl-0">Còn lại</label>
+            <input [value]="cashInReturn| currency:'VND'" class="form-control-sm border-dark w-100" type="text">
+
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <fieldset class="scheduler-border ">
+    <legend class="scheduler-border">Danh sách thuốc</legend>
+    <app-import-list-drug (sendTotal)="passTotalMonney($event)"></app-import-list-drug>
+    <div class="container d-flex justify-content-end pt-4 pb-5">
+      <div class="d-flex">
+      <button class="mr-4 btn btn-create button"
+              type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Hoàn tất
+      </button>
+      <button class="mr-4 btn btn-danger" id="delete" type="button" (click)="confirmBox()"><i
+        class="fa fa-trash-o"></i> Xóa
+        thuốc
+      </button>
+      <button class="mr-4 btn btn-return button" type="button"><i class="icon-sidebar fa fa-reply"></i>
+        Trở về
+      </button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

@@ -1,0 +1,58 @@
+<div class="content mb-3">
+  <div class="row">
+    <div id="sidebar" class="col-2">
+      <div class="menu-sub d-flex justify-content-center mt-2 mb-2">
+        <h2>Chọn nhanh</h2>
+      </div>
+      <div class="suv-menu ml-3">
+        <ul class="subnav-item">
+          <li class="border-top">
+            <i class="icon-sidebar fa fa-file-text-o text-light"></i>
+            <a routerLink="/report">Báo cáo</a>
+          </li>
+          <li>
+            <i class="icon-sidebar fa fa-database"></i>
+            <a routerLink="/warehouse/import/list">Nhập kho</a>
+          </li>
+          <li>
+            <i
+              class="icon-sidebar fa fa-reply text-warning"
+              style="width: 12px"
+            ></i>
+            <a
+              routerLink="/management/warehouse/warehouse-export/export-bill-refund"
+              >Xuất hoàn trả</a
+            >
+          </li>
+          <li>
+            <i class="icon-sidebar fa fa-times text-violet"></i>
+            <a
+              routerLink="/management/warehouse/warehouse-export/export-bill-destroy"
+              >Xuất hủy</a
+            >
+          </li>
+          <li class="mt-3 border-top">
+            <i class="icon-sidebar fa fa-search text-light"></i>
+            <a routerLink="management/information-lookup">Tra cứu nhanh</a>
+          </li>
+
+          <li class="mt-3 border-top">
+            <i class="icon-sidebar fa fa-clipboard"></i>
+            <a routerLink="sales-invoice">Nhật ký bán hàng</a>
+          </li>
+          <li class="mt-3 border-top">
+            <i class="icon-sidebar fa fa-sign-out text-warning"></i>
+            <a style="cursor: pointer" (click)="logout()">Đăng xuất</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 right-content">
+      <div class="row white-block"></div>
+
+      <!--        nơi đổ dữ liệu router-outlet              -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

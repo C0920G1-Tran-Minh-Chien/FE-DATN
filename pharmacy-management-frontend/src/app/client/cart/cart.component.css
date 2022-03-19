@@ -1,0 +1,120 @@
+.container h3,
+.container h3 a {
+  text-decoration: none;
+}
+
+.container h3 span {
+  color: #000;
+}
+
+.container table tbody td {
+  padding: 6px;
+}
+
+.container table thead th {
+  color: #000;
+}
+
+#main {
+  display: flex;
+}
+
+#left {
+  width: 60%;
+  padding: 15px 30px;
+}
+
+#left table tbody tr td .bi {
+  font-size: 25px;
+  color: #bfbfbf;
+}
+
+#left table tbody tr td .bi:hover {
+  font-size: 25px;
+  color: #000;
+}
+
+#left table td:nth-child(3),
+#left table td:nth-child(4) {
+  width: 100px;
+}
+
+#left table td:nth-child(3) div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+}
+
+#left table td:nth-child(3) input:nth-child(2) {
+  width: 40px;
+  text-align: center;
+  outline: #e0e0e0;
+}
+
+#left table td:nth-child(3) input:nth-child(2) {
+  background-color: white !important;
+}
+
+#left table td:nth-child(3) input:nth-child(1),
+#left table td:nth-child(3) input:nth-child(3) {
+  width: 30px;
+  background: #f0f0f0;
+  border: 1px solid #f0f0f0;
+}
+
+#left table td:nth-child(3) input:nth-child(1):hover,
+#left table td:nth-child(3) input:nth-child(3):hover {
+  background: #e0e0e0;
+}
+
+#left table td:nth-child(3) input:nth-child(2) {
+  border: 1px solid #f0f0f0;
+}
+
+#left table td:nth-child(2),
+#left table td:nth-child(4) {
+  text-align: right;
+}
+
+#left table td:nth-child(3) input:nth-child(1),
+#left table td:nth-child(3) input:nth-child(3) {
+  width: 30px;
+}
+
+#left table tr:last-child td {
+  padding-top: 20px;
+}
+
+#right {
+  width: 40%;
+  padding: 30px;
+  border-left: 1px solid darkgray;
+}
+
+#right table:first-child thead tr th,
+#right table:first-child tbody tr td {
+  display: flex;
+  justify-content: space-between;
+}
+
+#right a {
+  width: 100%;
+}
+@media only screen and (max-width: 1000px) {
+  #main {
+    display: initial;
+  }
+  #main #left,
+  #main #right {
+    width: 100%;
+    padding: 10px !important;
+  }
+  #main #right {
+    border-left: none;
+  }
+  .container h3 {
+    font-size: 20px !important;
+  }
+}

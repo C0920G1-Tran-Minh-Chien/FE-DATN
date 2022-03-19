@@ -1,0 +1,193 @@
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 right-content ">
+  <div class="tieude align-content-center">
+    <h2 class="mt-2" style="text-align: center">Quản lí hóa đơn bán hàng</h2>
+  </div>
+
+  <!--  <div class="container pt3">-->
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Bộ lọc</legend>
+    <form class="p-3" [formGroup]="searchForm" >
+      <div class="row">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-3 ">
+          <div class="form-group" style="justify-content: flex-start">
+            <label>Từ Ngày</label>
+            <input type="date" [(ngModel)]="search1" name="search1" formControlName="search1">
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="!searchValue1.valid && (searchValue1.dirty || searchValue1.touched)">
+              <div [hidden]="!searchValue1.errors.required">
+                <p style="color: red">ngày không được để trống</p>
+              </div>
+              <div [hidden]="!searchValue1.errors.pattern">
+                <p style="color: red"> chưa đúng định dạng yyyy/MM/dd </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="form-group">
+            <label style="margin:3px">Đến ngày</label>
+            <input type="date" style="margin: 0px" [(ngModel)]="search2" name="search2" formControlName="search2">
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="!searchValue2.valid && (searchValue2.dirty || searchValue2.touched)">
+              <div [hidden]="!searchValue2.errors.required">
+                <p style="color: red">ngày không được để trống</p>
+              </div>
+              <div [hidden]="!searchValue2.errors.pattern">
+                <p style="color: red"> chưa đúng định dạng yyyy/MM/dd </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="form-group">
+            <label>Từ giờ </label>
+            <input type="time" style="width: 162px" [(ngModel)]="search3" name="search3" formControlName="search3">
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="!searchValue3.valid && (searchValue3.dirty || searchValue3.touched)">
+              <div [hidden]="!searchValue3.errors.required">
+                <p style="color: red">giờ không được để trống</p>
+              </div>
+              <div [hidden]="!searchValue3.errors.pattern">
+                <p style="color: red"> chưa đúng định giờ HH/MM </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="form-group">
+            <label>Đến giờ</label>
+            <input type="time" style="width: 162px" [(ngModel)]="search4" name="search4" formControlName="search4">
+            <div class="alert alert-danger" role="alert"
+                 *ngIf="!searchValue4.valid && (searchValue4.dirty || searchValue4.touched)">
+              <div [hidden]="!searchValue4.errors.required">
+                <p style="color: red">giờ không được để trống</p>
+              </div>
+              <div [hidden]="!searchValue1.errors.pattern">
+                <p style="color: red"> chưa đúng định giờ HH/MM </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="form-group" style="justify-content: flex-start">
+            <label style="margin-right: 10px">Hiển thị</label>
+            <select [(ngModel)]="search5" name="search5" formControlName="search5">
+              <option value="bán lẻ" selected>Bán lẻ</option>
+              <option value="bán theo đơn">Bán theo đơn</option>
+              <option value="bán sỉ">Bán sỉ</option>
+              <option value="Bán online">Bán online</option>
+              <option value="khách hoàn trả">Khách hoàn trả</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="form-group">
+            <label style="margin-right: 10px">Sắp xếp</label>
+            <select [(ngModel)]="search6" name="search6" formControlName="search6">
+              <option value="1" selected>Mã hóa đơn</option>
+              <option value="2">Tên khách hàng</option>
+              <option value="3">Ngày lập Giờ lập</option>
+              <option value="4">Người lập</option>
+              <option value="5">Tổng tiền</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-4 col-lg-6">
+          <div class="form-group d-flex justify-content-end">
+            <button class="btn search " style="width: 162px ; margin-right: 27px" [disabled]="!searchForm.valid"
+                    (click)="search()">
+              <i class="fa fa-search"></i>
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </fieldset>
+
+
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Danh sách</legend>
+    <div class="container pb-3">
+      <div class="">
+        <table class="table table-bordered overflow-auto table-striped" style="height: 300px">
+          <thead class="thead">
+          <tr>
+            <th class="text-center">Mã hóa đơn</th>
+            <th class="text-center">Loại hóa đơn</th>
+            <th class="text-center">Tên khách hàng</th>
+            <th class="text-center">Ngày lập</th>
+            <th class="text-center">Giờ lập</th>
+            <th class="text-center">Người lập</th>
+            <th class="text-center">Tổng tiền</th>
+            <th class="text-center">Ghi chú</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let billSale of billSales" (click)="changColorandId(billSale.billSaleId)"
+              [class.selected]="err? null: billSale === selectedBillSale" (click)=changColor(billSale)>
+            <td>{{billSale.billSaleCode}}</td>
+            <td>{{billSale.billSaleType}}</td>
+            <td>{{billSale.customer.customerName}}</td>
+            <td>{{billSale.date }}</td>
+            <td>{{billSale.time}}</td>
+            <td>{{billSale.employee.employeeName}}</td>
+            <td>{{billSale.totalMoney}}</td>
+            <td>{{billSale.billSaleNote}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" (click)="previous()">Trước</a></li>
+              <li class="page-item" *ngFor="let p of pages; let i=index"><a class="page-link"
+                                                                            (click)="setPage(i)">{{i + 1}}</a></li>
+              <li class="page-item"><a class="page-link" (click)="next()">Sau</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="d-flex justify-content-end pt-4 pb-5  ">
+    <div class="row">
+      <div class="form-group col-6 col-sm-6 col-md-3 col-lg-3">
+        <button class=" btn btn-add" type="button" routerLink="/wholesale"><i class="fa fa-plus"></i> Thêm</button>
+      </div>
+      <div class="form-group col-6 col-sm-6 col-md-3 col-lg-3">
+        <button class=" btn btn-print" type="button"  (click)="htmlToPDF()"><i
+          class="fa fa-print" aria-hidden="true"></i> In phiếu
+        </button>
+
+      </div>
+      <div class="form-group col-6 col-sm-6 col-md-3 col-lg-3">
+        <button class=" btn btn-danger" type="button" (click)="onDeleteHandler()"><i
+          class="fa fa-trash-o"></i> Xóa
+        </button>
+
+      </div>
+      <div class="form-group col-6 col-sm-6 col-md-3 col-lg-3">
+        <button class=" btn ve" type="button" routerLink="/"><i class="fa fa-reply"></i> Trở về</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+<!--</div>-->
+

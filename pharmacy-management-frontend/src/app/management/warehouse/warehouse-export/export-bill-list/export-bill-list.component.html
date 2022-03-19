@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div id="content" class="container">
+      <div class="col-md-12" style="text-align: center">
+        <h2 class="pt-3">Danh sách hóa đơn xuất kho</h2>
+      </div>
+    </div>
+    <div class="row">
+      <form style="width: 300%;">
+        <div class="col-md-12 col-sm-12" style="align-content: center;">
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border"><h3>Bộ lọc</h3></legend>
+            <div class="row">
+              <div class="col-2">
+                <label class="label-text">Loại hóa đơn</label>
+                <div>
+                  <select class="date" #type
+                          style="width:90%; height: 30px; border-width: 2.8px; border-radius: 5px">
+                    <option value="0" selected>Tất cả loại hóa đơn</option>
+                    <option value="1">Xuất hoàn trả</option>
+                    <option value="2">Xuất hủy</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mb-12">
+                  <label class="label-text">Ngày lập</label>
+                  <div>
+                    <input #date1 class="date" type="date" style="width:90%" value="2021-01-01">
+                    <p *ngIf="message1 != ''" style="color: red ; font-size: 12px">{{message1}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mb-3">
+                  <label class="label-text">Đến ngày</label>
+                  <div>
+                    <input #date2 class="date" type="date" style="width:90%" value="2021-01-01">
+                    <p *ngIf="message2 != ''" style="color: red ; font-size: 12px">{{message2}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mb-3">
+                  <label class="label-text">Từ giờ</label>
+                  <div>
+                    <input #time1 class="date" type="time" style="width:90%" value="00:00">
+                    <p *ngIf="message3 != ''" style="color: red ; font-size: 12px">{{message3}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mb-3">
+                  <label class="label-text">Đến giờ</label>
+                  <div>
+                    <input #time2 class="date" type="time" style="width:90%" value="00:00">
+                    <p *ngIf="message4 != ''" style="color: red ; font-size: 12px">{{message4}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mb-3">
+                  <label class="label-text"></label>
+                  <div style="margin-left: 30%;margin-top: 20px">
+                    <button class="btn-search btn"
+                            (click)="getCaseRecordByFields(date1.value, date2.value, time1.value, time2.value, type.value,1)">
+                      <i class="fa fa-search" style="position: sticky; bottom: 0px;"></i>
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border"><h3>Danh sách</h3></legend>
+            <div class="scheduler-border">
+              <table class="table table-bordered">
+                <thead class="headOfQLXK">
+                <tr>
+                  <td>Mã HĐ</td>
+                  <td>Ngày lập</td>
+                  <td>Giờ lập</td>
+                  <td>Người lập</td>
+                  <td>Tổng tiền (VND)</td>
+                  <td>Tên nhà cung cấp</td>
+                  <td>Lí do hoàn trả</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="trow" *ngFor="let exportBill of exportBillList, index as i"
+                    (click)="selectRecords(exportBill.exportBillId)"
+                    [ngClass]="{'row-selected': selectRecord.indexOf(exportBill.exportBillId) !== -1}">
+                  <td hidden></td>
+                  <td>{{exportBill.exportBillCode}}</td>
+                  <td>{{exportBill.exportBillDate | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{exportBill.exportBillDate | date: 'HH:mm'}}</td>
+                  <td>{{exportBill.employee.employeeName}}</td>
+                  <td>{{104600.345*exportBill.exportBillId | currencyVND}}</td>
+                  <td *ngIf="exportBill.manufacturer != null">{{exportBill.manufacturer.manufacturerName}}</td>
+                  <td *ngIf="exportBill.manufacturer == null">Hóa đơn hủy</td>
+                  <td>{{exportBill.exportBillReason}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" (click)="previous()">Trang trước</a></li>
+                  <li class="page-item" *ngFor="let p of pages;let i=index"><a class="page-link"
+                                                                               (click)="setPage(i)">{{i + 1}}</a></li>
+                  <li class="page-item"><a class="page-link" (click)="next()">Trang sau</a></li>
+                </ul>
+              </nav>
+            </div>
+          </fieldset>
+          <div class="d-flex justify-content-end pt-4 pb-5">
+            <button class="mr-3  btn btn-pay" type="button" [routerLink]="['/export-bill-refund']"><i
+              class="fa fa-plus"></i> Thêm hóa đơn
+            </button>
+            <button class="mr-3  btn btn-print" type="button" (click)="openDialogPrint()"><i class="fa fa-print"></i>
+              In phiếu
+            </button>
+            <button class="mr-3  btn btn-delete" type="button" (click)="openDialogDelete()"><i
+              class="fa fa-trash"></i> xóa hóa
+              đơn
+            </button>
+            <button (click)="getBackLastPage()" class="  btn btn-nav" type="button"><i
+              class="icon-sidebar fa fa-reply"></i> Trở về
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

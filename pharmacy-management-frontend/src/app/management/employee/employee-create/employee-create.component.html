@@ -1,0 +1,136 @@
+<!--        nơi đổ dữ liệu router-outlet              -->
+<fieldset class="scheduler-border">
+  <legend class="scheduler-border text-center align-content-center"><h2>Thêm mới nhân viên</h2></legend>
+  <br>
+  <form [formGroup]="employeeForm" (ngSubmit)="addNewEmployee()" class="form-group col-12" #formGroupRef="ngForm">
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Tên nhân viên <label>(*)</label></span>
+      </div>
+      <div class="col-8">
+        <input formControlName="employeeName" class="form-control" type="text">
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.employeeName">
+            <div class="text-danger">
+              <div class="error-message"
+                   *ngIf="employeeForm.get('employeeName').hasError(validation.type) && (employeeForm.get('employeeName').dirty || employeeForm.get('employeeName').touched || formGroupRef.submitted)">
+                {{validation.message}}</div>
+            </div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Địa chỉ <label>(*)</label></span>
+      </div>
+      <div class="col-8">
+        <input formControlName="employeeAddress" class="form-control" type="text">
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.employeeAddress">
+            <div class="error-message"
+                 *ngIf="employeeForm.get('employeeAddress').hasError(validation.type) && (employeeForm.get('employeeAddress').dirty || employeeForm.get('employeeAddress').touched || formGroupRef.submitted)">
+              {{validation.message}}</div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Điện thoại <label>(*)</label></span>
+      </div>
+      <div class="col-8">
+        <input formControlName="employeePhone" class="form-control" type="text">
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.employeePhone">
+            <div class="error-message"
+                 *ngIf="employeeForm.get('employeePhone').hasError(validation.type) && (employeeForm.get('employeePhone').dirty || employeeForm.get('employeePhone').touched || formGroupRef.submitted)">
+              {{validation.message}}</div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Ngày vào làm <label>(*)</label></span>
+      </div>
+      <div class="col-4">
+        <input formControlName="employeeStartDate" type="date" class="form-control">
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.employeeStartDate">
+            <div class="error-message"
+                 *ngIf="employeeForm.get('employeeStartDate').hasError(validation.type) && (employeeForm.get('employeeStartDate').dirty || employeeForm.get('employeeStartDate').touched || formGroupRef.submitted)">
+              {{validation.message}}</div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Tên tài khoản <label>(*)</label></span>
+      </div>
+      <div class="col-8">
+        <input formControlName="accountName" class="form-control" type="text">
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.accountName">
+            <div class="error-message"
+                 *ngIf="employeeForm.get('accountName').hasError(validation.type) && (employeeForm.get('accountName').dirty || employeeForm.get('accountName').touched || formGroupRef.submitted)">
+              {{validation.message}}</div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Ảnh nhân viên <label>(*)</label></span>
+      </div>
+      <div class="col-8">
+        <input class="btn btn-sm" style="background: #adb5bd" type="file" (change)="showPreview($event)">
+        <br>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Chức vụ <label>(*)</label></span>
+      </div>
+      <div class="col-8" >
+        <select class="form-control" formControlName="position">
+          <option value="" [selected]="true">--CHỌN--</option>
+          <option value="Nhân viên"> Nhân Viên</option>
+          <option value="Quản lý">Quản Lý</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row input-group">
+      <div class="col-3 folow-right">
+        <span>Ghi chú</span>
+      </div>
+      <div class="col-8">
+        <textarea formControlName="employeeNote" class="form-control" type="text"></textarea>
+        <small>
+          <div class="text-danger" *ngFor="let validation of validationMessage.employeeNote">
+            <div class="error-message"
+                 *ngIf="employeeForm.get('employeeNote').hasError(validation.type) && (employeeForm.get('employeeNote').dirty || formGroupRef.submitted)">
+              {{validation.message}}</div>
+          </div>
+        </small>
+      </div>
+    </div>
+    <div class=" d-flex justify-content-end margin">
+      <button class="mr-5 btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Thêm
+      </button>
+      <button class="mr-5 btn btn-danger" type="reset" data-toggle="modal" data-target="#exampleModal"><i
+        class="fa fa-refresh" aria-hidden="true"></i> Khôi phục
+      </button>
+      <a href="/employee" class="btn btn-back " style="margin-right: 36px"><i class="icon-sidebar fa fa-reply"></i> Trở về</a>
+    </div>
+  </form>
+</fieldset>

@@ -1,0 +1,118 @@
+<div>
+  <form [formGroup]="billSaleForm" (ngSubmit)="payment()">
+    <div class="container my-3">
+      <div class="container my-3" style="background: #567FEA;height: 50px"><h2
+        style="text-align: center;line-height: 50px">Bán hàng</h2></div>
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Bán sỉ</legend>
+        <div class="container p-3">
+          <div class="row">
+            <div class="col-lg-4 my-2">
+              <div class="row ">
+                <label for="inputBillId1" class="label-text">Số phiếu</label>
+                <input  type="text" id="inputBillId1" *ngIf="billSaleLast != null" readonly value="HDBS{{this.billSaleLast.billSaleId+1}}">
+              </div>
+              <div class="row mt-3 ">
+                <label for="inputEmployee" class="label-text">Nhân viên</label>
+                <input formControlName="employee" id="inputEmployee" type="text" value="{{employeeName}}">
+              </div>
+            </div>
+            <div class="col-lg-4 my-2">
+              <div class="row ">
+                <label for="inputDate" class="label-text">Ngày lập</label>
+                <input formControlName="invoiceDate" type="text"  id="inputDate" readonly>
+              </div>
+              <div class="row mt-3 ">
+                <label for="selectEmployee" class="label-text">Khách hàng<i class="text-danger">*</i></label>
+                <select formControlName="customer" id="selectEmployee" type="text">
+                  <option [selected]="true" [hidden]="true" [ngValue]="null">Chọn khách hàng</option>
+                  <option *ngFor="let customer of customerList" [ngValue]="customer">{{customer.customerName}}</option>
+                </select>
+                &nbsp;&nbsp;
+                <a href="#"><i class="fa fa-plus mt-2" aria-hidden="true"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="row my-2">
+                <label for="inputNote" class="label-text">Ghi chú</label>
+                <textarea formControlName="billSaleNote" type="text" class="height85px a" id="inputNote"
+                          placeholder="Note..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="container pb-3" >
+      <fieldset class="scheduler-border" >
+        <legend class="scheduler-border">Danh sánh thuốc</legend>
+        <div class="outer scroll">
+          <table class="table table-bordered table-striped">
+            <thead class="thead">
+            <tr class="ve">
+              <th class="text-center">Tên thuốc</th>
+              <th class="text-center">Đơn vị tính</th>
+              <th class="text-center">Số lượng</th>
+              <th class="text-center">Đơn giá</th>
+              <th class="text-center">Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>
+              <select [(ngModel)]="selectDrug" [ngModelOptions]="{standalone: true}">
+                <option [selected]="true" [hidden]="true" [ngValue]="null">Thêm thuốc</option>
+                <option *ngFor="let drug of drugs" [ngValue]="drug">{{drug.drugName}}</option>
+              </select>
+            </td>
+            <td class="text-center"></td>
+            <td class="text-center"><input [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}" type="number"
+                                           onkeypress="return event.charCode >= 48" placeholder="số lượng"
+                                           [value]="quantity"
+                                           style="width: 100px; text-align: center"></td>
+            <td class="text-center"></td>
+            <td class="text-center">
+              <button type="button" class="btn btn-pay" (click)="addDrug(selectDrug, quantity )">Thêm</button>
+            </td>
+            </tbody>
+            <tbody *ngFor="let drugOfBill of drugOfBillList , let i = index">
+            <tr id="{{i}}" (click)="send(drugOfBill,i,drugOfBill.drug.drugName)"
+                [style]="{background: i == this.idSelect ? '#63B8FF' : null}">
+              <td>{{drugOfBill.drug.drugName}}</td>
+              <td>{{drugOfBill.drug.unit}}</td>
+              <td>{{drugOfBill.quantity}}</td>
+              <td>{{drugOfBill.drug.wholesalePrice | currency : 'VND'}}</td>
+              <td>{{(drugOfBill.drug.wholesalePrice * drugOfBill.quantity) | currency : 'VND'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-end mt-3 " hidden>
+          <label for="inputTotal" class="mr-3">Tổng tiền </label>
+          <input  type="text" id="inputTotal"  readonly value="{{total | currency : 'VND'}}">
+        </div>
+
+      </fieldset>
+
+      <div class="mt-3">
+        <div class="row">
+          <div class="col-12 text-right">
+            <button type="submit" class="btn btn-pay mx-2"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+              Thanh toán
+            </button>
+            <button (click)="openDeleteDialog()" class=" btn btn-danger mx-2" data-toggle="modal"
+                    data-target="#exampleModal1" type="button"><i
+              class="fa fa-trash-o" aria-hidden="true"></i> Xóa thuốc
+            </button>
+            <button class="btn-print mx-2 btn btn-warning" type="button" (click)="htmlToPDF()">
+              <i class="fa fa-print" aria-hidden="true"></i>
+              In phiếu
+            </button>
+            <button class="btn ve ml-2" type="button" routerLink="/"><i class="icon-sidebar fa fa-reply "></i>
+              Trở về
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

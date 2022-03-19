@@ -1,0 +1,24 @@
+#report-button{
+  position: relative;
+}
+#msg-date{
+  position: absolute;
+  top: 40px;
+  left: 0;
+}
+
+h4{
+  margin: 10px 0 0;
+}
+small{
+  color: red;
+}
+.btn-search:hover {
+  background-color: #52B6C1;
+}
+
+.btn-search {
+  color: white;
+  background-color: #567FEA;
+}
+

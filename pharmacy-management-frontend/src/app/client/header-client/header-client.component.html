@@ -1,0 +1,188 @@
+<!--HEADER-->
+<nav
+  class="navbar navbar-light navbar-expand-md bg-light justify-content-center"
+>
+  <div class="container">
+    <a class="navbar-brand ml-2" href="#"
+      ><span
+        ><img
+          src="https://i.imgur.com/RvTvNrK.png?1"
+          height="80"
+          width="115" /></span
+    ></a>
+    <div
+      class="navbar-collapse navbar-toggle collapse w-100"
+      id="collapsingNavbar3"
+    >
+      <ul class="navbar-nav w-100 ml-lg-5 justify-content-center">
+        <div class="w-100">
+          <div class="search-box w-100 ml-lg-5">
+            <input
+              id="searchInput"
+              (keydown.enter)="pressEnter($event)"
+              [(ngModel)]="search"
+              type="text"
+              class="search-term"
+              placeholder="Tìm kiếm ..."
+            />
+            <button
+              type="submit"
+              id="searchButton"
+              class="search-button"
+              routerLinkActive="active"
+              [routerLink]="['search', search]"
+            >
+              <i class="fa fa-search text-white"></i>
+            </button>
+          </div>
+        </div>
+      </ul>
+      <ul class="nav navbar-nav w-100 justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart" routerLinkActive="active"
+            ><span
+              >GIỎ HÀNG<i
+                class="fa fa-shopping-cart fa-2x"
+                style="color: #000000"
+              ></i></span
+            ><span class="item-in-cart">{{ totalProduct }}</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <div *ngIf="!isLoggedIn">
+            <button
+              style="margin-top: 5px"
+              type="button"
+              class="btn btn-primary"
+              (click)="openDialogLogin()"
+            >
+              ĐĂNG NHẬP
+            </button>
+          </div>
+          <ul
+            style="margin-top: 5px"
+            class="navbar-nav ml-auto"
+            *ngIf="isLoggedIn"
+          >
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle active"
+                href="#"
+                id="navbarDropdownMenuLink2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="color: #567fea; font-size: larger"
+              >
+                {{ username }}
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink2"
+              >
+                <!--                <a class="dropdown-item" disabled *ngIf="ismod">Quản lý hệ thống</a>-->
+                <!--                <a class="dropdown-item" disabled>Quản lý tài khoản</a>-->
+                <a href class="dropdown-item" (click)="logout()">Đăng xuất</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<nav
+  class="navbar sticky-top navbar-expand-lg navbar-dark header-colored pb-2"
+  style="z-index: 10"
+>
+  <div class="container">
+    <a class="navbar-brand ml-2" href="#"><span>TRANG CHỦ</span></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target=".navbar-toggle"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="navbar-collapse navbar-toggle collapse w-100"
+      id="collapsingNavbar1"
+    >
+      <ul class="navbar-nav w-100 ml-lg-5 justify-content-center">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle active px-lg-4"
+            href="#"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            SẢN PHẨM
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div *ngFor="let drugGroup of drugGroups">
+              <a
+                class="dropdown-item"
+                [routerLink]="[
+                  'drug-view-by-drug-group',
+                  drugGroup.drugGroupName
+                ]"
+                routerLinkActive="active"
+                style="text-transform: uppercase"
+                >THUỐC {{ drugGroup.drugGroupName }}</a
+              >
+            </div>
+          </div>
+        </li>
+        <li>
+          <a
+            class="nav-item nav-link mr-2 active"
+            [routerLink]="['health-tips']"
+            >SỐNG KHỎE</a
+          >
+        </li>
+        <li>
+          <a class="nav-item nav-link active" [routerLink]="['hot-deals']"
+            ><span
+              class="neon-text fa fa-bolt fa-lg"
+              style="color: yellow"
+            ></span
+            >️ DEAL HOT THÁNG 3</a
+          >
+        </li>
+      </ul>
+      <ul class="nav navbar-nav w-100 justify-content-end">
+        <li class="nav-item">
+          <a
+            class="nav-item nav-link border-right-nav-item active"
+            [routerLink]="['location']"
+            routerLinkActive="active"
+            >HỆ THỐNG NHÀ THUỐC</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle active"
+            href="#"
+            id="navbarDropdownMenuLink1"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            HOTLINE
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+            <a class="dropdown-item" disabled>18002001 CSKH</a>
+            <a class="dropdown-item" disabled>18006821 ĐẶT HÀNG</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--</header>-->

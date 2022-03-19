@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" *ngIf="notSelected">Xóa và sửa thuốc</h3>
+  <h3 class="modal-title font-weight-bold" *ngIf="notFound">Không thể tìm kiếm</h3>
+  <h3 class="modal-title font-weight-bold" *ngIf="deleted">Xoá thuốc</h3>
+  <h3 class="modal-title font-weight-bold" *ngIf="created">Thêm thuốc</h3>
+  <h3 class="modal-title font-weight-bold" *ngIf="edited">Sửa thuốc</h3>
+  <button type="button" class="close" aria-hidden="true" (click)="onNoClick()">&times;</button>
+</div>
+<div class="modal-body">
+  <p class="text-danger font-weight-bold" *ngIf="notSelected">Chưa chọn thuốc</p>
+  <p class="text-danger font-weight-bold" *ngIf="notFound">Không có kết quả tìm kiếm phù hợp</p>
+  <p class="text-danger font-weight-bold" *ngIf="deleted">Xóa thành công</p>
+  <p class="text-danger font-weight-bold" *ngIf="created">Thêm thành công</p>
+  <p class="text-danger font-weight-bold" *ngIf="edited">Sửa thành công</p>
+  <p class="text-warning" *ngIf="notSelected"><small>Vui lòng chọn thuốc để Xóa hoặc Sửa</small></p>
+  <p class="text-warning" *ngIf="notFound"><small>Vui lòng thử tìm kiếm khác</small></p>
+  <p class="text-warning" *ngIf="deleted"><small>Chọn "Trở về" để tiếp tục</small></p>
+  <p class="text-warning" *ngIf="edited"><small>Chọn "Trở về" để tiếp tục</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button " style="font-size: 14px; width: 85px" type="button" (click)="onNoClick()"><i
+    class="fa fa-reply"></i> Trở về
+  </button>
+</div>

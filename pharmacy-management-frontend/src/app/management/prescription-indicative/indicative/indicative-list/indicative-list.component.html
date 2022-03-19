@@ -1,0 +1,26 @@
+<!--<table>-->
+<!--  <tr>-->
+<!--    <td>STT</td>-->
+<!--    <td>Loai thuoc</td>-->
+<!--    <td>Tong cong</td>-->
+<!--    <td>Ngay uong</td>-->
+<!--    <td>Lan uong</td>-->
+<!--  </tr>-->
+<!--  <tr *ngFor=" let in of indicatives ; index as i";>-->
+<!--    <td>{{i+1}}</td>-->
+<!--    <td>{{in.drug}}</td>-->
+<!--    <td>{{in.totalPill}}</td>-->
+<!--    <td>{{in.drinkDay}}</td>-->
+<!--    <td>{{in.drinkTime}}</td>-->
+<!--  </tr>-->
+<!--</table>-->
+
+<h2>{{name}}</h2>
+<div *ngFor="let value of values; let  i=index">
+  <input type="text" [(ngModel)]="value.value" #name="ngModel" name="value{{i}}">
+  <button (click)="removeValue(i)">REMOVE</button>
+</div>
+
+<button (click)="addValue()">ADD</button>
+<h2>kET QUA</h2>
+<div *ngFor="let value of values">{{value.value}}</div>

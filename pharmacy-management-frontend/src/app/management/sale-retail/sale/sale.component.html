@@ -1,0 +1,115 @@
+<div>
+  <div  class="container " id="print-me">
+    <h2 class="text-center">Hóa đơn bán lẻ</h2>
+    <div class="container ">
+
+      <form   class="border p-3">
+
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label class="label-text">Số Phiếu (<i class="text-danger text-under">* </i>)</label>
+              <input class="width-input form-control" *ngIf="billSaleLast != null" disabled value="{{'HDBL'+ (billSaleLast.billSaleId + 1)}}">
+            </div>
+            <div class="mb-3">
+              <label class="label-text">Nhân viên (<i class="text-danger text-under">* </i>)</label>
+              <input class="width-input form-control" disabled type="text" value="{{user.employee.employeeName}}"><br>
+            </div>
+            <div class="mb-3">
+              <label class="label-text" >Ngày lập (<i class="text-danger text-under">* </i>)</label>
+              <input class=" form-control" [(ngModel)]="dateSetBill" name="date" type="date">
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label class="label-text">Khách hàng (<i class="text-danger text-under">* </i>)</label>
+              <input class="width-input form-control" disabled type="text" placeholder="khách lẻ">
+
+            </div>
+            <div class="mb-3">
+              <label class="label-text" >Ghi chú (<i class="text-danger text-under">* </i>)</label>
+              <input class="width-input form-control" [(ngModel)]="note" name="note" type="textarea">
+            </div>
+
+          </div>
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label class="label-text" >Tham khảo toa</label>
+              <div class="d-flex">
+                <input class="width-input form-control" type="text"  >
+                <button class="btn-primary btn">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+
+
+            </div>
+            <button class="btn btn-success" type="submit" routerLink="/pres" >Nhập thuốc từ toa sẵn</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container pb-3">
+      <div class="scroll outer">
+        <table class="table table-bordered table-striped">
+          <thead class="thead">
+          <tr>
+            <th>Tên thuốc</th>
+            <th>Đơn vị tính</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr >
+<!--            <td>-->
+<!--              <select [ngModel]="null" (ngModelChange)="getDrug($event)"    >-->
+<!--                <option  [selected]="true" [hidden]="true"   >Thêm thuốc</option>-->
+<!--                <option  *ngFor="let drug of drugs" [ngValue]="drug"  >{{drug.name}}</option>-->
+<!--              </select>-->
+<!--            </td>-->
+            <td>
+              <select [(ngModel)]="drug"   >
+                <option [ngValue]="null"  [selected]="true" [hidden]="true"   >Thêm thuốc</option>
+                <option  *ngFor="let drug of drugs" [ngValue]="drug"  >{{drug.drugName}}</option>
+              </select>
+            </td>
+            <td></td>
+            <td><input [(ngModel)]="number1" name="number" type="text" placeholder="số lượng" [value]="number1" style="width: 100px"></td>
+            <td></td>
+            <td><button (click)="addDrug(drug, number1 )">Thêm</button></td>
+          </tr>
+
+          </tbody>
+          <tbody *ngFor="let drugOfBill of drugOfBills , let i = index">
+          <tr id="{{i}}" (click)="send(drugOfBill,i) "  (click)="showChoose(drugOfBill)" [class.selected] = "drugOfBill === drugOf">
+            <td>{{drugOfBill.drug.drugName}}</td>
+            <td>vỉ</td>
+            <td>{{drugOfBill.quantity}}</td>
+            <td>{{drugOfBill.drug.retailPrice | currencyVND}}</td>
+            <td>{{drugOfBill.drug.retailPrice * drugOfBill.quantity | currencyVND}}</td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="d-flex  justify-content-end mt-3 ">
+        <label class="mr-3 mt-2 ">Tổng tiền </label>
+        <input   value="{{total | currencyVND}}" class="form-control col-3" type="text">
+      </div>
+    </div>
+    <div class="d-flex justify-content-end pt-4 pb-5">
+      <button class="mr-5 btn btn-pay" type="button" (click)="saveBill()" ><i class="fa fa-plus"></i> Thanh toán</button>
+      <button class="mr-5 btn btn-print" type="button" (click)="htmlToPDF()" ><i class="fa fa-print"></i> In phiếu</button>
+      <button class="mr-5 btn btn-danger" type="button" (click)="openDeleteDialog()" ><i class="fa fa-trash"></i> xóa thuôc </button>
+      <button class=" btn btn-edit" type="button" routerLink="/" ><i class="fa fa-undo"></i> Trở về </button>
+    </div>
+  </div>
+</div>
+
+

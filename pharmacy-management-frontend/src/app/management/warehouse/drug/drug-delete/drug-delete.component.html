@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" >Xóa thuốc</h3>
+  <button type="button" class="close" aria-hidden="true" (click)="onNoClick()">&times;</button>
+</div>
+<div class="modal-body" *ngIf="drugId">
+  <input hidden type="text" name="drugId" id="customerId">
+  <p>Bạn có chắc muốn xóa mã thuốc: <span class="text-danger font-weight-bold">{{drugCode}}</span></p>
+  <p class="text-warning"><small>Hành đồng này có thể không thể hoàn lại</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button " style="font-size: 14px; width: 85px" type="button" (click)="onNoClick()"><i
+  class="fa fa-reply"></i> Trở về
+</button>
+  <button class="mr-3 btn btn-danger button" style="font-size: 14px; width: 85px" (click)="delete()"><i
+    class="fa fa-trash-o"></i> Xóa
+  </button>
+</div>

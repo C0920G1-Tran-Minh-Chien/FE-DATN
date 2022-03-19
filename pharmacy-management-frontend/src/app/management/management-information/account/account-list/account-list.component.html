@@ -1,0 +1,75 @@
+<div class="col-10" style="margin-left: 85px">
+  <div class="container" style="background: #567FEA;height: 50px"><h2
+    style="text-align: center;line-height: 50px">DANH SÁCH TÀI KHOẢN</h2></div>
+  <div>
+    <fieldset class="mt-3 pt-0 scheduler-border">
+      <legend class="scheduler-border">Bộ lọc</legend>
+      <form class="border p-3 mt-2">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label class="label-text" >Nhập từ khóa</label>
+              <div class="d-flex">
+                <input [hidden]="property==4" [readOnly]="property==0" [(ngModel)]="keyWord" name="keyWord" class="width-input mr-2" type="text">
+                <select class="mr-2 selectFind" [hidden]="property!=4" name="roleId" [(ngModel)]="roleId">
+                  <option value="0" [selected]="true" style="font-weight: lighter;font-style: italic">--Chọn Loại Tài Khoản--</option>
+                  <option value="1">Người Dùng</option>
+                  <option value="2">Nhân Viên</option>
+                  <option value="3">Quản Lý</option>
+                </select>
+                <select class="mr-2 selectFind" (ngModelChange)="onchangeProperty($event)" [(ngModel)]="property" name="property">
+                  <option value="0" selected>Chọn</option>
+                  <option value="1">Tên người dùng</option>
+                  <option value="2">Mã người dùng</option>
+                  <option value="3">Tên tài khoản</option>
+                  <option value="4">Loại tài khoản</option>
+                </select>
+                <button [disabled]="roleId==0&&property==4" (click)="searchAccount()" type="button" class="btn-search btn p-1" style="color: white"><i class="fa fa-search"></i> Tìm Kiếm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </fieldset>
+
+    <fieldset class="pb-3 scheduler-border">
+      <legend class="scheduler-border">Danh sách</legend>
+      <table class="table table-bordered table-striped mt-2">
+        <thead class="thead">
+        <tr>
+          <th>Mã người dùng</th>
+          <th>Tên người dùng</th>
+          <th>Tên tài khoản</th>
+          <th>Loại tài khoản</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr role="button" id="btn1"  *ngFor="let acc of accounts" (click)="getIdAccount(acc.id)" [style]="acc.id==idAccount&&idAccountReClick?'background-color: #66CCFF':''">
+          <td>{{acc.userCode}}</td>
+          <td>{{acc.accountName}}</td>
+          <td>{{acc.userName}}</td>
+          <td>
+            <label *ngIf="acc.roles[0].name=='ROLE_USER'">Người Dùng</label>
+            <label *ngIf="acc.roles[0].name=='ROLE_MODERATOR'">Nhân Viên</label>
+            <label *ngIf="acc.roles[0].name=='ROLE_ADMIN'">Quản Lý</label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-end mt-2">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" ><p [hidden]="page==0" class="page-link p-2" (click)="backPage()">Trước</p></li>
+            <li class="page-item" *ngFor="let number of pages; index as i" ><p class="page-link p-2" (click)="changePage(i)" [style]="i==page?'background-color: #66CCFF':''" >{{i+1}}</p></li>
+            <li class="page-item"><p [hidden]="pagination.totalPages==page+1||accounts.length==0" class="page-link p-2" (click)="nextPage()">Sau</p></li>
+          </ul>
+        </nav>
+      </div>
+    </fieldset>
+    <div class="d-flex justify-content-end pt-2 pb-1">
+      <button [hidden]="accounts.length==0" [disabled]="!idAccount" (click)="onUpdateHendler(idAccount)" class="mr-5 ml-2 btn btn-pay " type="button" style="background: #000055;padding: 5px;"><i class="fa fa-edit"></i> Chỉnh sửa tài khoản</button>
+      <a href="/" class="p-0 ml-1"><button class=" btn btn-edit ml-1" type="button" style="color: white;padding: 5px;" ><i class="fa fa-reply"></i>Trở về</button></a>
+    </div>
+  </div>
+</div>

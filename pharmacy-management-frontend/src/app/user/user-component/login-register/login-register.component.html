@@ -1,0 +1,81 @@
+<div class="to-card">
+  <div class="to-inner-box" id="card" [ngStyle]="{'transform': flag? 'rotateY(-180deg)' : 'rotateY(0deg)'}">
+    <div class="to-card-front">
+      <h2 style="color: black">Đăng Nhập</h2>
+      <form [formGroup]="formSignin" (ngSubmit)="onSubmit()">
+        <div class="to-div-input">
+          <input type="text" formControlName="username" class="to-input-box" placeholder="Tên Đăng Nhập"
+                 required>
+          <small class="to-error-text" *ngIf="formSignin.get('username')?.hasError('required')
+                        && formSignin.get('username')?.touched">Không được để trống!!!
+          </small>
+        </div>
+        <div class="to-div-input">
+          <input type="password" formControlName="password" class="to-input-box" placeholder="Mật Khẩu" required>
+          <small class="to-error-text" *ngIf="formSignin.get('password')?.hasError('required')
+                        && formSignin.get('password')?.touched">Không được để trống!!!
+          </small>
+        </div>
+        <div class="to-div-input">
+          <button type="submit" [disabled]="formSignin.invalid" class="to-sign-submit"
+                  style="margin-top: 20px;margin-bottom: 10px">Đăng nhập
+          </button>
+        </div>
+        <input type="checkbox"><span style="color: black">Nhớ tài khoản</span>
+      </form>
+<!--      <p class="to-text">Đăng nhập bằng</p>-->
+<!--      <div class="to-social-icons">-->
+<!--        <img src="../../../../assets/image/client-login-image/fb2.png" style="margin-right: 5px">-->
+<!--        <img src="../../../../assets/image/client-login-image/gmail2.png">-->
+<!--      </div>-->
+      <button type="button" class="to-change" style="margin-top: 30px" (click)="openRegister()">Đăng Ký
+      </button>
+    </div>
+
+    <!--     Đăng ký-->
+    <div class="to-card-back" style="height: 500px">
+      <h2 style="color: black">Đăng Ký</h2>
+      <form [formGroup]="formRegister" (ngSubmit)="onSubmitRegister()">
+        <div class="to-div-input">
+          <input type="text" class="to-input-box" formControlName="accountName" placeholder="Họ và tên(*)" required>
+          <small class="to-error-text" *ngIf="formRegister.get('accountName')?.hasError('required')
+                  && formRegister.get('accountName')?.touched">Không được để trống!</small>
+          <small class="to-error-text" *ngIf="formRegister.get('accountName')?.hasError('minlength')
+                  && formRegister.get('accountName')?.touched">Tên ít nhất 5 ký tự</small>
+        </div>
+        <div class="to-div-input">
+          <input type="text" class="to-input-box" formControlName="username" placeholder="Tên Đăng Nhập(*)" required>
+          <small class="to-error-text" *ngIf="formRegister.get('username')?.hasError('required')
+                  && formRegister.get('username')?.touched">Không được để trống!</small>
+          <small class="to-error-text" *ngIf="formRegister.get('username')?.hasError('minlength')
+                  && formRegister.get('username')?.touched">Tên đăng nhập ít nhất 5 ký tự</small>
+        </div>
+        <div class="to-div-input">
+          <input type="email" class="to-input-box" formControlName="email" placeholder="Email(*)" required>
+          <small class="to-error-text" *ngIf="formRegister.get('email')?.hasError('required')
+                  && formRegister.get('email')?.touched">Không được để trống!</small>
+          <small class="to-error-text" *ngIf="formRegister.get('email')?.hasError('minlength')
+                  && formRegister.get('email')?.touched">Email ít nhất 5 ký tự</small>
+        </div>
+        <div class="to-div-input">
+          <input type="password" class="to-input-box" formControlName="password" placeholder="Mật Khẩu(*)" required>
+          <small class="to-error-text" *ngIf="formRegister.get('password')?.hasError('required')
+                  && formRegister.get('password')?.touched">Không được để trống!</small>
+          <small class="to-error-text" *ngIf="formRegister.get('password')?.hasError('minlength')
+                  && formRegister.get('password')?.touched">Mật khẩu ít nhất 5 ký tự</small>
+        </div>
+        <button type="submit" class="to-sign-submit" style="margin-top: 20px;margin-bottom: 10px">Đăng ký
+        </button>
+      </form>
+<!--      <p class="to-text">Đăng nhập bằng</p>-->
+<!--      <div class="to-social-icons">-->
+<!--        <img src="../../../../assets/image/client-login-image/fb2.png" alt="" style="margin-right: 5px">-->
+<!--        <img src="../../../../assets/image/client-login-image/gmail2.png" alt="">-->
+<!--      </div>-->
+      <button type="button" class="to-change" style="margin-top: 30px" (click)="openRegister()">Đăng nhập
+      </button>
+    </div>
+  </div>
+
+</div>
+<!--//test commit-->

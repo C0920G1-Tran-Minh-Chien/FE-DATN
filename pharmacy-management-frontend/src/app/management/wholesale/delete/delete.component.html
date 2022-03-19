@@ -1,0 +1,24 @@
+<!--<p>Do you want to delete this drug</p>-->
+<!--<p *ngIf="data[1].drugOfBill != null">{{data[1].drugOfBill.name}}</p>-->
+<!--<button  (click)="delete()" class="btn btn-danger" mat-dialog-close="">delete</button>-->
+
+
+
+
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" >Xóa thuốc</h3>
+</div>
+<div class="modal-body" >
+  <input hidden type="text" name="drugId" id="customerId">
+  <p>Bạn có chắc muốn xóa thuốc: <span class="text-danger font-weight-bold">{{data[2]}}</span></p>
+  <p class="text-warning"><small>Hành đồng này có thể không thể hoàn lại</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button" data-dismiss="modal"
+          mat-dialog-close="" style="font-size: 14px; width: 85px;background: #567FEA" type="button" ><i
+    class="fa fa-reply"></i> Trở về
+  </button>
+  <button class="mr-3 btn btn-danger button" style="font-size: 14px; width: 85px"  mat-dialog-close="" (click)="delete()"><i
+    class="fa fa-trash-o"></i> Xóa
+  </button>
+</div>

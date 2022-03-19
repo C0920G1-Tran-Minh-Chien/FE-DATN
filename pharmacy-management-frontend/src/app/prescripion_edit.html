@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa toa thuốc</title>
+    <link rel="stylesheet" href="./bootstrap/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="bootstrap/bootstrap-4.6.0-dist/js/bootstrap.js"></script>
+</head>
+<body>
+<div id="header" class="d-flex justify-content-between">
+    <div id="list">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul id="nav">
+        <li>
+            <a href="https://github.com/">Home</a>
+        </li>
+        <li>
+            <a href="">
+                Quản lý bán hàng
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Bán lẻ</a></li>
+                <li><a href="">Bán hàng</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Quản lý kho bãi
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Quản lý nhập kho</a></li>
+                <li><a href="">Quản lý xuất kho</a></li>
+                <li><a href="">Danh sách thuốc</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Quản lý thông tin
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Khách hàng</a></li>
+                <li><a href="">Nhà cung cấp</a></li>
+                <li><a href="">Nhân viên</a></li>
+                <li><a href="">Toa thuốc</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Tra cứu
+            </a>
+
+        </li>
+        <li>
+            <a href="" id="bao-cao">
+                Báo cáo
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Báo cáo</a></li>
+                <li><a href="">Biểu đồ Thống kê</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="user d-flex">
+        <p id="user-name">Admin</p>
+        <img id="user-image" src="./image/user-image.jpg" alt="">
+    </div>
+</div>
+<div class="content mb-3">
+    <div class="row">
+        <div id="sidebar" class="col-2">
+            <div class="menu-sub d-flex justify-content-center mt-2 mb-2">
+                <h5>Chọn nhanh</h5>
+            </div>
+            <div >
+                <ul class="subnav-item">
+                    <li class="border-top">
+                        <i class="icon-sidebar fa fa-file-text-o text-light"></i>
+                        <a href="">Báo cáo</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-database"></i>
+                        <a href="#">Nhập kho</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-reply text-warning"></i>
+                        <a href="#">Xuất hoàn trả</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-times text-violet"></i>
+                        <a href="#">Xuất hủy</a>
+                    </li>
+                    <li class="mt-3 border-top">
+                        <i class="icon-sidebar fa fa-search text-light"></i>
+                        <a href="">Tra cứu nhanh</a>
+                    </li>
+                    <li >
+                        <i class="icon-sidebar fa fa-archive text-light"></i>
+                        <a href="#">Hệ thống kho bãi</a>
+                    </li>
+                    <li class="mt-3 border-top" >
+                        <i class="icon-sidebar fa fa-clipboard"></i>
+                        <a href="#">Nhật ký bán hàng</a>
+                    </li>
+                    <li class="mt-3 border-top" >
+                        <i class="icon-sidebar fa fa-sign-out text-warning "></i>
+                        <a href="#">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 right-content ">
+            <div class="row white-block"></div>
+
+            <!--        nơi đổ dữ liệu router-outlet              -->
+
+            <div class="" >
+                <form id="form" class="border p-3">
+
+                    <hr>
+                    <h2 class="text-center mb-3">Đơn thuốc</h2>
+
+                    <div class="">
+                        <div class="d-flex mb-3">
+                            <label class="label-text-min mt-1 ml-1 d-flex">Tên đơn thuốc <p style=" color: red">(*)</p></label>
+
+                            <input class="form-control pl-2" type="text" value="Đơn thuốc cảm cúm">
+
+                        </div>
+
+
+                        <div class="d-flex mb-3">
+                            <label class="label-text-min mt-1 ml-1 d-flex">Triệu chứng <p style=" color: red">(*)</p></label>
+
+
+                            <input class="form-control pl-2" type="text" value="Đau đầu, sổ mũi, người mệt mỏi"  >
+                        </div>
+                        <div class="d-flex">
+                            <label class="label-text-min mt-1 ml-1 d-flex">Ghi chú </label>
+                            <textarea class="form-control pl-2" type="text">Không dùng cho trẻ em dưới 5 tuổi, phụ nữ có thai và những người mẫn cảm với các thành phần của thuốc
+                            </textarea>
+                        </div>
+                        <br>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-2">
+                            <label class="label-text-min mt-1">Đối tượng</label>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control ml-4" style="width: 70%">
+                                <option>Trẻ em</option>
+                                <option>Người lớn</option>
+                                <option>Phụ nữ mang thai</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-3">
+                            <label class="label-text-min mt-1 ml-5 ">Số ngày uống</label>
+
+                        </div>
+                        <div class="col-3"> <input type="number" class="form-control " style="width: 96%;"></div>
+                    </div>
+
+                    <br>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Chỉ định</legend>
+
+                        <div class="mb-3">
+                            <ol>
+                                <li class="mb-3">
+                                    <div class="d-flex justify-content-between row">
+                                        <div class=" col-6">
+                                            <select class="select form-control">
+                                                <option>Aspirin</option>
+                                                <option>chọn thuốc</option>
+                                                <option>Panadol</option>
+                                                <option>Ampicilin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-3 d-flex">
+                                            <input class="vien mr-4 form-control ml-2" type="number" value="8"> <span
+                                                class="mt-2 ">Viên</span>
+                                        </div>
+                                        <div class=" col-2">
+                                            <i style="color: red;width: 200%" class="fa fa-trash-o btn-lg mr-5 mt-1 "
+                                               aria-hidden="true"></i>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="d-flex row">
+                                        <div class="col-8 d-flex ">
+                                            <p class="mt-2">Ngày uống</p>
+                                            <input type="number" class="ml-2 vien form-control" value="4">
+                                            <p class="ml-2 mt-2 mr-2">lần , </p>
+
+                                            <span class="mt-2 mr-2"> mỗi lần</span>
+                                            <input type="number" class=" vien  form-control " value="2">
+                                            <span class="mt-2 ml-4">Viên</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+
+
+                            </ol>
+                            <div class="row d-flex ">
+                                <div class="col-4">
+
+                                </div>
+                                <div class="col-8 ">
+                                    <button class="mt-3 btn  ml-5 border border-secondary  "  type="button"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="col-4">
+
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex flex-row-reverse pt-4 pb-5">
+                            <button class=" btn btn-danger huy" type="button"><i class="fa fa-times-circle"
+                                                                                 aria-hidden="true"></i> Hủy
+                            </button>
+                            <button class="mr-5 btn btn-success" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Hoàn tất</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="footer">
+    <div class="social-list">
+        <a class="mr-2" href=""><i class="icon-footer fa fa-facebook"></i></a>
+        <a class="ml-2" href=""><i class="icon-footer fa fa-google"></i></a>
+
+    </div>
+</div>
+</body>
+</html>
+
+
+

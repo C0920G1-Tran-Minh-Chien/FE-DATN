@@ -1,0 +1,132 @@
+<!--FOOTER-->
+<footer>
+  <div class="container py-5">
+    <div class="row py-3">
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <h3 class="text-uppercase font-weight-bold text-light mb-4">
+          KHOACHIEN PHARMA
+        </h3>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2"><a href="#" class="text-light">KẾT NỐI</a></li>
+          <hr style="margin-top: -10px" />
+          <li style="margin-top: -15px" class="mb-2">
+            <a href="#" class="text-light"
+              ><span
+                class="fa fa-facebook-square fa-2x mr-1"
+                style="color: #ffffff"
+              ></span></a
+            ><a
+              ><span
+                class="fa fa-google-plus-square fa-2x"
+                style="color: #ffffff"
+              ></span>
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-light">HOT LINE MIỄN PHÍ</a>
+          </li>
+          <hr style="margin-top: -10px" />
+          <li style="margin-top: -15px" class="mb-2">
+            <a href="#" class="text-light">Đặt hàng: 18006821</a>
+          </li>
+          <li style="margin-top: -10px" class="mb-2">
+            <a href="#" class="text-light">Hỗ trợ: 18002001</a>
+          </li>
+          <span class="text-white font-weight-lighter"
+            >Thông tin, hình ảnh của sản phẩm trong website chỉ mang tính chất
+            tham khảo. Sản phẩm thực tế có thể thay đổi/chênh lệch theo từng Lô
+            sản xuất.</span
+          >
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <h3 class="text-uppercase text-light font-weight-bold mb-4">
+          Liên kết hữu ích
+        </h3>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2">
+            <a [routerLink]="['health-tips']" class="text-light">SỐNG KHỎE</a>
+          </li>
+          <li class="mb-2">
+            <a [routerLink]="['hot-deals']" class="text-light">DEAL HOT</a>
+          </li>
+          <li class="mb-2">
+            <a [routerLink]="['location']" href="#" class="text-light"
+              >TÌM NHÀ THUỐC GẦN BẠN</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <h3 class="text-uppercase text-light font-weight-bold mb-4">
+          DANH MỤC
+        </h3>
+        <ul class="list-unstyled mb-0">
+          <div *ngFor="let drugGroup of drugGroups">
+            <li class="mb-2">
+              <a
+                [routerLink]="[
+                  'drug-view-by-drug-group',
+                  drugGroup.drugGroupName
+                ]"
+                routerLinkActive="active"
+                class="text-light"
+                style="text-transform: uppercase"
+                >THUỐC {{ drugGroup.drugGroupName }}</a
+              >
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-lg-0">
+        <h3 class="text-uppercase text-light font-weight-bold mb-4">
+          ĐĂNG KÝ THÀNH VIÊN
+        </h3>
+        <p class="text-light mb-4">
+          Hãy đăng ký thành viên để nhận được khuyến mãi hoặc ưu đãi mới nhất từ
+          KHOACHIEN PHARMA
+        </p>
+        <button
+          style="margin-top: -15px"
+          type="button"
+          class="btn btn-primary"
+          (click)="openDialogLogin()"
+        >
+          Đăng ký
+        </button>
+        <hr />
+        <img
+          src="./assets/image/client-page-image/bocongthuong.png"
+          height="40"
+          width="100"
+        />
+        <img
+          src="./assets/image/client-page-image/gmo.png"
+          height="40"
+          width="108"
+        />
+      </div>
+    </div>
+  </div>
+  <hr class="p-0 m-0 b-0" />
+  <div class="bg-light py-2">
+    <div class="container text-center">
+      <p class="text-muted mb-0 py-2">
+        © 2021 KHOACHIEN PHARMA - All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+<!--CHAT BUTTON-->
+<!--<nav class="navbar navbar-light fixed-bottom navbar-expand-md bg-transparent justify-content-center">-->
+<!--  <div class="container">-->
+<!--    <ul class="nav navbar-nav w-100 justify-content-end mr-lg-3">-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#">-->
+<!--          <button class="btn chat-button">CHAT CÙNG KHOACHIEN &nbsp;<i class="fa fa-bell"-->
+<!--                                                                    style="color: #ffffff"></i></button>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</nav>-->

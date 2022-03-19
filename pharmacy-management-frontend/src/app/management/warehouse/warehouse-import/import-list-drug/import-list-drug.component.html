@@ -1,0 +1,74 @@
+<div class="container pb-3">
+  <table id="tb1" class="table table-bordered">
+    <thead class="thead">
+    <tr>
+      <th class="text-center bg-th">Tên thuốc</th>
+      <th class="text-center bg-th">Đơn vị tính</th>
+      <th class="text-center ">Số lượng</th>
+      <th class="text-center ">Đơn giá</th>
+      <th class="text-center ">%CK</th>
+      <th class="text-center ">VAT</th>
+      <th class="text-center ">Thành tiền (VNĐ)</th>
+      <th class="text-center ">Số lô</th>
+      <th class="text-center ">Hạn dùng</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+<!--        <mat-select style="background-color: #62b8ff;min-width:100px;height: 40px;line-height: 40px;text-align: center;font-weight: bold" placeholder="Mời Chọn Thuốc" #drugSelect (selectionChange)="choiceDrug($event)">-->
+<!--          <mat-option style="min-width: 100px">-->
+<!--            <ngx-mat-select-search style="width: 60px !important;" [noEntriesFoundLabel]="'Không có thuốc bạn tìm'" [placeholderLabel] ="'Tìm thuốc....'"></ngx-mat-select-search>-->
+<!--          </mat-option>-->
+<!--          <mat-option style="min-width: 100px" *ngFor="let drug of drugs" value="{{drug.drugId}}">-->
+<!--            {{drug.drugName}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+        <mat-select style="background-color: #62b8ff;min-width:200px;height: 40px;line-height: 40px;text-align: center;font-weight: bold" placeholder="Mời Chọn Thuốc"  #drugSelect (selectionChange)="choiceDrug($event)">
+          <mat-option style="min-width: 100px">
+            <ngx-mat-select-search style="width: 60px !important;" [noEntriesFoundLabel]="'Không có thuốc bạn tìm'" [placeholderLabel] ="'Tìm thuốc....'" ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option style="min-width: 100px" *ngFor="let drug of drugs" value="{{drug.drugId}}">
+            {{drug.drugName}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+    <ng-container [formGroup]="form" >
+      <ng-container formArrayName="formArrayDrugs">
+        <tr class="onRow" *ngFor="let importBilDurg of formArrayDrugs.controls; let i = index"
+            (click)="clickDelete($event)" [id]="i" (input)="totalMoneyCalculation(i)">
+          <ng-container [formGroupName]="i"  *ngIf="showList(i)">
+            <td class="col-4">{{importBilDurg.value.drug.drugName}}</td>
+            <td class="col-2 w-75">{{importBilDurg.value.drug.conversionUnit}}</td>
+            <td class="px-1 col-2 w-75"><input class="form-control-sm text-right w-100" type="number" formControlName="importAmount">
+            </td>
+            <td class="px-1"><input class="form-control-sm text-right money" type="text"
+                                    [value]="importPrice(i) | currency: 'VND'"  formControlName="importPrice">
+            </td>
+            <td class="px-1"><input class="form-control-sm text-right" type="text" maxlength="3" formControlName="discountRate">
+            </td>
+            <td class="px-1"><input class="form-control-sm text-right" type="number" formControlName="vat"></td>
+            <td class="px-1">
+              <input readonly class="form-control-sm text-right total-money" type="text"
+                     value="{{totalRow(i)| currency: 'VND'}}">
+            </td>
+            <td class="px-1"><input class="form-control-sm text-right lot-num" type="text" formControlName="lotNumber"></td>
+            <td class="px-1"><input class="form-control-sm text-right w-100" type="date" formControlName="expiry"></td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-end mx-4">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><button type="button" class="page-link" *ngIf="totalPage >0 && indexPagination >0" (click)="previousPage()">Trang trước</button></li>
+        <li class="page-item" *ngFor="let key of totalPagination | arrayNum"><button type="button" class="page-link" (click)="choicePage(key)">  {{key + 1}}</button></li>
+        <li class="page-item"><button type="button" class="page-link" *ngIf="totalPage >0 && indexPagination < totalPagination -1 " (click)="nextPage()">Trang tiếp</button></li>
+      </ul>
+    </nav>
+  </div>
+</div>

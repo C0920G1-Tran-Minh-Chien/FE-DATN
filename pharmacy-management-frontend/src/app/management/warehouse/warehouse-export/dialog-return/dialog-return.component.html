@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" >Trở về</h3>
+  <button type="button" class="close" aria-hidden="true" (click)="closeDialog()">&times;</button>
+</div>
+<div class="modal-body">
+  <input hidden type="text" name="drugId" id="customerId">
+  <span class="text-danger font-weight-bold">{{data.message}}</span>
+  <p class="text-warning"><small>Hành đồng này có thể không thể hoàn lại</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button " style="font-size: 14px; width: 85px" type="button" [mat-dialog-close]="false"><i
+    class="fa fa-reply"></i> Không
+  </button>
+  <button class="mr-3 btn btn-danger button" style="font-size: 14px; width: 85px;background: #506AEA" [mat-dialog-close]="true"><i
+    class="fa fa-trash-o"></i> Đồng ý
+  </button>
+</div>

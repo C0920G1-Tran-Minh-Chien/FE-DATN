@@ -1,0 +1,12 @@
+<h1>Xóa nhóm thuốc</h1>
+<p>Mã nhóm thuốc: {{data.drugGroupCode}}</p>
+<p>Tên nhóm thuốc: {{data.drugGroupName}}</p>
+<p>Bạn có muốn xóa không???</p>
+<hr>
+<div class="d-flex">
+  <button class="mr-1 btn btn-back " style="margin-left: 160px" type="button" (click)="dialogRef.close(false)">
+    <i class="icon-sidebar fa fa-reply"></i> Trở về</button>
+  <button class="ml-1 btn btn-danger "  type="button" (click)="dialogRef.close(true)">
+    <i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
+</div>
+

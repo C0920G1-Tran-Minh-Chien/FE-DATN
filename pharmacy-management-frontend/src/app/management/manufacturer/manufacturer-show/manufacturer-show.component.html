@@ -1,0 +1,153 @@
+<div class="container mt-3">
+
+  <div class="modal-body">
+    <div class="container" style="background: #567FEA;height: 50px"><h2
+      style="text-align: center;line-height: 50px">CHI TIẾT NHÀ CUNG CẤP</h2>
+    </div>
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Thông tin chi tiết:</legend>
+      <form>
+        <div class="row">
+          <label class="label-text col-2 ">Mã nhà cung cấp:</label>
+          <div class="col-3">
+            <input  [value]="manufacturer.manufacturerCode"  class="form-control" type="text">
+          </div>
+          <label class="label-text col">Tên nhà cung cấp:</label>
+          <div class="col-5">
+            <input [value]="manufacturer.manufacturerName" disabled class="form-control" type="text">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <label class="label-text col-2 ">Số điện thoại:</label>
+          <div class="col-3">
+            <input [value]="manufacturer.manufacturerPhoneNumber" disabled class="form-control " type="text">
+          </div>
+          <label class="label-text col">Địa chỉ:</label>
+          <div class="col-5">
+            <input [value]="manufacturer.manufacturerAddress" disabled class="form-control" type="text">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <label class="label-text col-2 ">Công nợ:</label>
+          <div class="col-3">
+            <input [value]="manufacturer.manufacturerDebts" disabled class="form-control " type="text">
+          </div>
+          <label class="label-text col">Ghi chú:</label>
+          <div class="col-5">
+            <input disabled [value]="manufacturer.manufacturerNote" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="row mt-3">
+
+          <label class="label-text col-lg-2">Email:</label>
+          <div class="col-lg-10">
+            <input [value]="manufacturer.manufacturerEmail" disabled class="form-control" type="text">
+          </div>
+        </div>
+
+      </form>
+    </fieldset>
+
+
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Bộ lọc:</legend>
+      <form class=" p-3">
+
+        <div class="row">
+
+          <label  for="startDate" class="col-lg-2">Từ ngày:</label>
+          <input [(ngModel)]="sd" value="{{sd}}" name="startDate"  id="startDate" class="col-lg-3" style="height: 30px;width: 130px"
+                 type="date"
+          >
+
+
+          <label for="endDate" class="col-lg-2 ">Đến ngày:</label>
+          <input [(ngModel)]="ed" value="{{ed}}"  id="endDate" class="col-lg-3" name="endDate" style="height: 30px;width: 130px"
+                 type="date"
+                 >
+
+        </div >
+        <div class="row mt-3">
+          <label for="startTime" class=" col-lg-2">Từ giờ:</label>
+          <input [(ngModel)]="st"  name="st" id="startTime" class=" col-lg-3" style="height: 30px;width: 130px" type="time"
+                >
+          <label for="endTime" class=" col-lg-2 ">Đến giờ:</label>
+          <input [(ngModel)]="et"  name="et" id="endTime" class="col-lg-3" style="height: 30px;width: 130px" type="time"
+                 >
+
+          <div class="col-lg-2"><button (click)="searchDate()" style="height: 30px"  class="   btn ve " type="button"><i class="fa fa-search"
+                                                                                                  aria-hidden="true"></i>
+            Tìm kiếm
+          </button></div>
+
+
+        </div>
+
+      </form>
+    </fieldset>
+  </div>
+
+  <div class="container pb-3">
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Danh sánh</legend>
+      <table class="table table-bordered table-striped  ">
+        <thead class="thead">
+        <tr class="ve">
+<th>#</th>
+          <th>Mã hóa đơn</th>
+          <th>Số chứng từ</th>
+          <th>Ngày lập</th>
+          <th>Giờ lập</th>
+          <th>Tổng tiền</th>
+          <th>Nợ hóa đơn</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody *ngFor="let importBill of importBills,let i=index">
+
+        <tr (click)="getId(importBill.importBillId, importBill) " [class.selected]="importBill===selectedMovie">
+          <td>{{page * 5 + 1 + i}}</td>
+          <td>{{importBill.importSystemCode}}</td>
+          <td class="ct">{{importBill.accountingVoucher}}</td>
+          <td class="ct">{{importBill.invoiceDate | date:'dd/MM/yyyy'}}</td>
+          <td class="ct">{{importBill.invoiceDate.substr(11,14)}}</td>
+          <td class="ct">{{importBill.payment.totalMoney}}</td>
+          <td class="ct">{{importBill.payment.totalMoney - importBill.payment.prepayment}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" (click)="previous()">Trang trước</a></li>
+            <li class="page-item" *ngFor="let p of pages,let i=index" ><a class="page-link" (click)="setPage(i)"
+                                                                        >{{i+1}}</a></li>
+
+            <li class="page-item"><a class="page-link" (click)="next()" >Trang sau</a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </fieldset>
+
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <button (click)="dialogShow()" class="col-3 a btn btn-info" ><i
+          class="fa fa-window-restore" aria-hidden="true"></i> Thông tin
+          chi tiết
+        </button>
+        <div
+          class="col-lg-7"></div>
+        <div class="col-lg-2 text-right">
+          <a  >
+            <button routerLink="/manufacturer/list" type="button" class="btn ve" data-dismiss="modal"><i class="icon-sidebar fa fa-reply "></i>
+              Trở về
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" >Xóa đơn thuốc</h3>
+</div>
+<div class="modal-body" >
+  <input hidden type="text" name="drugId" id="customerId">
+  <p>Bạn có chắc muốn xóa mã đơn thuốc: <span class="text-danger font-weight-bold">{{data.prescriptionCode}}</span></p>
+  <p class="text-warning"><small>Hành đồng này có thể không thể hoàn lại</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button "  style="font-size: 14px; width: 85px;background: #567FEA;color: white" type="button" (click)="dialogRef.close(false)"><i
+    class="fa fa-reply"></i> Trở về
+  </button>
+  <button class="mr-3 btn btn-danger button" style="font-size: 14px; width: 85px" (click)="dialogRef.close(true)"><i
+    class="fa fa-trash-o"></i> Xóa
+  </button>
+</div>
+

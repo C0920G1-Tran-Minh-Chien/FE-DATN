@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách toa thuốc</title>
+    <link rel="stylesheet" href="./bootstrap/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+
+
+    <script src="bootstrap/jquery/jquery.js"></script>
+    <script src="bootstrap/bootstrap-4.6.0-dist/js/bootstrap.bundle.js"></script>
+    <script src="fileJS.js"></script>
+</head>
+<body>
+<div id="header" class="d-flex justify-content-between">
+    <div id="list">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul id="nav">
+        <li>
+            <a href="https://github.com/">Home</a>
+        </li>
+        <li>
+            <a href="">
+                Quản lý bán hàng
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Bán lẻ</a></li>
+                <li><a href="">Bán hàng</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Quản lý kho bãi
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Quản lý nhập kho</a></li>
+                <li><a href="">Quản lý xuất kho</a></li>
+                <li><a href="">Danh sách thuốc</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Quản lý thông tin
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Khách hàng</a></li>
+                <li><a href="">Nhà cung cấp</a></li>
+                <li><a href="">Nhân viên</a></li>
+                <li><a href="">Toa thuốc</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">
+                Tra cứu
+            </a>
+
+        </li>
+        <li>
+            <a href="" id="bao-cao">
+                Báo cáo
+                <i class="icon1 fa fa-caret-down ml-2"></i>
+            </a>
+            <ul class="subnav">
+                <li><a href="">Báo cáo</a></li>
+                <li><a href="">Biểu đồ Thống kê</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="user d-flex">
+        <p id="user-name">Admin</p>
+        <img id="user-image" src="./image/user-image.jpg" alt="">
+    </div>
+</div>
+<div class="content mb-3">
+    <div class="row">
+
+        <div id="sidebar" class="col-2">
+            <div class="menu-sub d-flex justify-content-center mt-2 mb-2">
+                <h5>Chọn nhanh</h5>
+            </div>
+            <div>
+                <ul class="subnav-item">
+                    <li class="border-top">
+                        <i class="icon-sidebar fa fa-file-text-o text-light"></i>
+                        <a href="">Báo cáo</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-database"></i>
+                        <a href="#">Nhập kho</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-reply text-warning"></i>
+                        <a href="#">Xuất hoàn trả</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-times text-violet"></i>
+                        <a href="#">Xuất hủy</a>
+                    </li>
+                    <li class="mt-3 border-top">
+                        <i class="icon-sidebar fa fa-search text-light"></i>
+                        <a href="">Tra cứu nhanh</a>
+                    </li>
+                    <li>
+                        <i class="icon-sidebar fa fa-archive text-light"></i>
+                        <a href="#">Hệ thống kho bãi</a>
+                    </li>
+                    <li class="mt-3 border-top">
+                        <i class="icon-sidebar fa fa-clipboard"></i>
+                        <a href="#">Nhật ký bán hàng</a>
+                    </li>
+                    <li class="mt-3 border-top">
+                        <i class="icon-sidebar fa fa-sign-out text-warning "></i>
+                        <a href="#">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 right-content ">
+            <div class="row white-block"></div>
+
+            <!--        nơi đổ dữ liệu router-outlet              -->
+
+
+            <div id="content" class="">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Bộ lọc</legend>
+                    <div class="container-fluid ">
+                        <div class="d-flex  mt-4">
+                            <div class=" col-3 d-flex">
+                                <label class="mt-1">Lọc theo</label>
+                                <select class="form-control ml-1" style="width: 70%">
+                                    <option>Tên thuốc</option>
+                                    <option>Mã toa thuốc</option>
+                                    <option>Đối tượng</option>
+                                    <option>Triệu chứng</option>
+                                </select>
+                            </div>
+                            <div class="col-6 d-flex">
+                                <input type="text" class="mr-2 form-control ml-5" style="width: 50%">
+                                <div class="ml-1 d-flex">
+                                    <button class="btn border   " style="height: 92%  "><i
+                                            class="fa fa-search "></i> Lọc kết quả
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mr-5 col-3 d-flex">
+                                <label class="mt-1 ">Sắp xếp </label>
+                                <select class="form-control ml-1" style="width: 70%">
+                                    <option>Mã toa thuốc</option>
+                                    <option>Tên thuốc</option>
+                                    <option>Đối tượng</option>
+                                    <option>Triệu chứng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Danh sách toa thuốc</legend>
+                    <div class="outer scroll">
+                        <table class="table table-striped ">
+
+                            <tr>
+                                <th>Mã toa thuốc</th>
+                                <th>Tên toa thuốc</th>
+                                <th>Đối tượng</th>
+                                <th>Triệu chứng</th>
+                                <th>Ghi chú</th>
+
+
+                            </tr>
+                            <tbody>
+                            <tr role="button" id="1" onclick="selectRow(this.id)">
+                                <td>TT001</td>
+                                <td>Viêm họng</td>
+                                <td>Trẻ em</td>
+                                <td>Đau họng, ho</td>
+                                <td>Cấm trẻ sơ sinh</td>
+
+                            </tr>
+                            <tr role="button" id="2" onclick="selectRow(this.id)">
+                                <td>TT002</td>
+                                <td>Cảm cúm</td>
+                                <td>Trẻ em</td>
+                                <td>Sốt cao , sổ mũi, hắt xìa</td>
+                                <td>Cấm trẻ sơ sinh và phụ nữ mang thai</td>
+
+
+                            </tr>
+                            <tr role="button" id="3" onclick="selectRow(this.id)">
+                                <td>TT003</td>
+                                <td>Đầy hơi</td>
+                                <td>Người lớn</td>
+                                <td>Đau bụng, đầy hơi, ợ chua</td>
+                                <td>Cấm trẻ sơ sinh</td>
+
+                            </tr>
+                            <tr role="button" id="4" onclick="selectRow(this.id)">
+                                <td>TT004</td>
+                                <td>Viêm họng</td>
+                                <td>Trẻ em</td>
+                                <td>Đau họng, ho</td>
+                                <td>Không có</td>
+                            </tr>
+
+                            <tr role="button" id="5" onclick="selectRow(this.id)">
+                                <td>TT005</td>
+                                <td>Viêm họng</td>
+                                <td>Trẻ em</td>
+                                <td>Đau họng, ho</td>
+                                <td>Cấm trẻ sơ sinh</td>
+                            </tr>
+                            <tr role="button" id="6" onclick="selectRow(this.id)">
+                                <td>TT006</td>
+                                <td>Cảm cúm</td>
+                                <td>Trẻ em</td>
+                                <td>Sốt cao , sổ mũi, hắt xìa</td>
+                                <td>Cấm trẻ sơ sinh và phụ nữ mang thai</td>
+
+                            </tr>
+                            <tr role="button" id="7" onclick="selectRow(this.id)">
+                                <td>TT007</td>
+                                <td>Đầy hơi</td>
+                                <td>Người lớn</td>
+                                <td>Đau bụng, đầy hơi, ợ chua</td>
+                                <td>Cấm trẻ sơ sinh</td>
+
+                            </tr>
+                            <tr role="button" id="8" onclick="selectRow(this.id)">
+                                <td>TT008</td>
+                                <td>Viêm họng</td>
+                                <td>Trẻ em</td>
+                                <td>Đau họng, ho</td>
+                                <td> Không có</td>
+
+                            </tr>
+                            <tr role="button" id="9" onclick="selectRow(this.id)">
+                                <td>TT007</td>
+                                <td>Đầy hơi</td>
+                                <td>Người lớn</td>
+                                <td>Đau bụng, đầy hơi, ợ chua</td>
+                                <td>Cấm trẻ sơ sinh</td>
+
+                            </tr>
+                            <tr role="button" id="10" onclick="selectRow(this.id)">
+                                <td>TT008</td>
+                                <td>Viêm họng</td>
+                                <td>Trẻ em</td>
+                                <td>Đau họng, ho</td>
+                                <td> Không có</td>
+
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-end">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Trước</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Tiếp</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </fieldset>
+
+
+                <div class="d-flex justify-content-end pt-4 pb-5">
+                    <button class="mr-5 btn btn-success" type="button"><i class="fa fa-plus" aria-hidden="true"></i>
+                        Thêm
+                    </button>
+                    <button class="mr-5 btn btn-edit" type="button"><i class="fa fa-pencil-square-o"
+                                                                       aria-hidden="true"></i> Sửa
+                    </button>
+                    <button class="mr-5 btn btn-danger" type="button" data-toggle="modal" data-target="#exampleModal"><i
+                            class="fa fa-trash-o" aria-hidden="true"></i> xóa
+                    </button>
+                    <button class="mr-1 btn btn-back" type="button" style=" width: auto;"><i class="icon-sidebar fa fa-reply ">
+                    </i>Trở về
+                    </button>
+                </div>
+            </div>
+
+
+            <!--modal-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Xóa đơn thuốc</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc chắn muốn toa thuốc có mã toa 'T001' không?
+                        </div>
+                        <div class="modal-footer">
+                            <button class="mr-5 btn ve btn-primary" type="button" data-dismiss="modal"><i
+                                    class="fa fa-undo"
+                                    aria-hidden="true"></i>
+                                Trở về
+                            </button>
+                            <button type="button" class="btn btn-danger "><i class="fa fa-trash-o"
+                                                                             aria-hidden="true"></i> xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<div id="footer">
+    <div class="social-list">
+        <a class="mr-2" href=""><i class="icon-footer fa fa-facebook"></i></a>
+        <a class="ml-2" href=""><i class="icon-footer fa fa-google"></i></a>
+
+    </div>
+</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,170 @@
+<div id="content" class="container">
+  <div class="row justify-content-center">
+    <div class="row">
+      <div id="title" class="col-md-12" style="text-align: center">
+        <h2 class="pt-3">Hóa Đơn Xuất Kho</h2>
+      </div>
+    </div>
+    <form style="width: 100%"  [formGroup]="exportBillForm" (ngSubmit)="createExportBill()">
+      <div >
+        <div class="row ">
+          <div class="col-md-12 col-sm-12" style="padding: 0 30px">
+            <fieldset class="scheduler-border" id="pdfTable">
+              <legend class="scheduler-border">Thông tin hóa đơn</legend>
+              <div class="row ml-5">
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group" style="justify-content: flex-start">
+                    <label>Loại Hóa Đơn :</label>
+                    <select #t formControlName="exportBillType" style="width: 300px" (change)="selectType(t.value)" [compareWith]="compareFn">
+                      <option *ngFor="let type of exportBillTypes" [ngValue]="type">{{type.exportBillTypeName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Nhà cung cấp :</label>
+                    <select style="width: 300px;" formControlName="manufacturer">
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5">
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Số HD:</label>
+                    <input type="text" formControlName="exportBillCode" readonly>
+                    <div class='form-text error' *ngIf='!exportBillForm.controls.exportBillCode?.valid && (exportBillForm.controls.exportBillCode.touched || exportBillForm.controls.exportBillCode.dirty)'>
+                      <small>Số hóa đơn không hợp lệ.</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Địa Chỉ:</label>
+                    <input type="text" style="border: 2px solid " formControlName="exportBillAddress">
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5">
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Ngày lập:</label>
+                    <input type="date" formControlName="exportBillDate">
+                    <div class='form-text error' *ngIf='!exportBillForm.controls.exportBillDate?.valid && (exportBillForm.controls.exportBillDate.touched || exportBillForm.controls.exportBillDate.dirty)'>
+                      <small>Ngày lập không hợp lệ.</small>
+                    </div>
+                  </div>
+                  <div class="">
+                    <label>Nhân viên:</label>
+                    <input type="text" disabled value="{{employeeName}}">
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label style="vertical-align: top">Lí Do:</label>
+                    <textarea formControlName="exportBillReason" cols="3" rows="3" ></textarea>
+                    <div class='form-text error' *ngIf='!exportBillForm.controls.exportBillReason?.valid && (exportBillForm.controls.exportBillReason.touched || exportBillForm.controls.exportBillReason.dirty)'>
+                      <small style="margin-left: 120px">Lý do không hợp lệ.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Danh sách thuốc</legend>
+            <div class="scroll outer">
+              <table class="table table-bordered"  style="height: 300px">
+                <thead class="head">
+                <tr>
+                  <th>Tên thuốc</th>
+                  <th>Số HĐ</th>
+                  <th>Đơn vị tính</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá</th>
+                  <th>Thành tiền</th>
+                  <th>Ngày lập</th>
+                  <th>Hạn dùng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <mat-select style="background-color: #62b8ff;min-width:200px;height: 40px;line-height: 40px;text-align: center;font-weight: bold"
+                                placeholder="Mời Chọn Thuốc"  [formControl]="bankCtrl" #drugSelect (selectionChange)="selectDrug()">
+                      <mat-option>
+                        <ngx-mat-select-search style="width: 60px !important;" [noEntriesFoundLabel]="'Không có thuốc bạn tìm'" [placeholderLabel] ="'Tìm thuốc...'" [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option *ngFor="let drug of filteredBanks | async" [value]="drug">
+                        {{drug.drug.drugName+"-"+ drug.importBill.importSystemCode }}
+                      </mat-option>
+                    </mat-select>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr [id]="d.importBillDrugId" *ngFor="let d of drugDestroys | paginate: { itemsPerPage: 5,
+                                                      currentPage: p }" role="button" (click)="selectRow(d.importBillDrugId, d.drug.drugName)">
+                  <td>{{d.drug.drugName}}</td>
+                  <td>{{d.importBill.importSystemCode}}</td>
+                  <td>{{d.drug.unit}}</td>
+                  <td>{{d.importAmount}}</td>
+                  <td>{{d.importPrice  | currencyVND}}</td>
+                  <td>{{d.importAmount * d.importPrice  | currencyVND}}</td>
+                  <td>{{d.importBill.invoiceDate| date: 'dd/MM/yyyy'}}</td>
+                  <td>{{d.expiry | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+                <ng-container *ngFor="let i of a">
+                  <tr *ngIf="(i > (drugDestroys.length - 5*(p-1))) || (drugDestroys.length == 0) ">
+                    <td> </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </ng-container>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end">
+                <pagination-controls previousLabel="Sau"
+                                     nextLabel="Trước"
+                                     responsive="true" (pageChange)="p = $event"></pagination-controls>
+              </div>
+            </div>
+            <div class="form-group row text-right pt-3">
+              <div class="col">
+                <label>Tổng Tiền : </label>
+                <input type="text" disabled style="width:200px; height: 40px; text-align: right; padding-right: 5px; margin-left: 10px" [value]="totalMoney|currencyVND">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-group row text-right pt-2">
+        <div class="col">
+          <button class="mr-4 btn btn-create button"
+                  type="submit" ><i class="fa fa-plus"></i> Hoàn tất
+          </button>
+          <button  class="mr-4 btn btn-danger button" type="button" (click)="deleteDrug()">
+            <i class="fa fa-trash-o"></i> Xóa thuốc
+          </button>
+          <button class="mr-4 btn btn-edit button" type="button" (click)="htmlToPDF()"><i class="fa fa-print"></i> In phiếu</button>
+          <button class="mr-4 btn btn-return button" type="button" (click)="returnList()"><i
+            class="fa fa-undo"></i> Trở về
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

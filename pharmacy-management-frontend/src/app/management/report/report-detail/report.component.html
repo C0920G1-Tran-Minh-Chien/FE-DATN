@@ -1,0 +1,132 @@
+
+<div class="container justify-content-between">
+  <div *ngIf="displayDate">
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Thời gian</legend>
+      <div class="row ">
+        <div class="mx-3 col"><b>Từ ngày:</b>
+          <input type="date" [(ngModel)]="sDate" class=" form-control ">
+        </div>
+        <div class="mx-3 col"><b>Đến ngày:</b>
+          <input type="date" [(ngModel)]="eDate" class=" form-control">
+        </div>
+        <div class="mx-3 col"><b>Từ giờ:</b>
+          <input type="time" [(ngModel)]="sTime" class=" form-control">
+        </div>
+        <div class="mx-3 col"><b>Đến giờ:</b>
+          <input type="time" [(ngModel)]="eTime" class=" form-control">
+        </div>
+      </div>
+      <small style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{msgDate}}</small>
+    </fieldset>
+  </div>
+  <div>
+    <fieldset class="scheduler-border ">
+      <legend class="scheduler-border">Hệ thống báo cáo</legend>
+      <div class="row">
+        <div class="col-4">
+          <legend class="scheduler-border"><h4><b>HÀNG HÓA, KHÁCH HÀNG</b></h4></legend>
+        </div>
+        <div class="col-4">
+          <legend class="scheduler-border"><h4><b>THU CHI, CÔNG NỢ</b></h4></legend>
+        </div>
+        <div class="col-4">
+          <legend class="scheduler-border"><h4><b>DANH SÁCH, PHÂN TÍCH</b></h4></legend>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input tabindex="0" type="radio" name="check" value="reportImportDetails" [(ngModel)]="choice"
+                 (click)="showDate()">
+          Báo cáo chi tiết nhập kho
+        </div>
+        <div class="col-4">
+          <input tabindex="1" type="radio" name="check" value="reportTurnover" (click)="showDate()"
+                 [(ngModel)]="choice"> Báo cáo doanh thu
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="medicinesNeedToBeImporteds" (click)="hiddenDate()"
+                 [(ngModel)]="choice"> Báo cáo thuốc cần nhập thêm
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportCancellationDetails" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo chi tiết xuất hủy
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="reportProfit" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo lợi nhuận
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="theDrugIsAboutToExpires" [(ngModel)]="choice" (click)="hiddenDate()">
+          Báo cáo thuốc sắp hết hạn
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportRefundExportDetails" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo chi tiết xuất hoàn trả
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="reportDebt" [(ngModel)]="choice"> Báo cáo công nợ
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="bestSellingDrugs" [(ngModel)]="choice" (click)="showDate()">
+          100 thuốc bán chạy nhất
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportRetailDetails" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo chi tiết bán lẻ
+        </div>
+        <div class="col-4">
+          <input type="radio" name="check" value="sellingDiarys" (click)="showDate()" [(ngModel)]="choice">
+          Nhật ký bán hàng
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportWholesaleDetails" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo chi tiết bán sỉ
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportDetailsSoldByOrder" [(ngModel)]="choice" (click)="showDate()">
+          Báo cáo chi tiết bán theo đơn
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="reportOnMedicationBeingProvided" [(ngModel)]="choice"
+                 (click)="hiddenDate()">
+          Báo cáo thuốc đang cung cấp
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <input type="radio" name="check" value="supplierList" [(ngModel)]="choice" (click)="hiddenDate()">
+          Báo cáo danh sách nhà cung cấp
+        </div>
+      </div>
+    </fieldset>
+    <div class="text-right d-flex justify-content-between mb-3">
+      <a href="/report/chart">
+        <button class=" btn btn-search button" type="button">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>Biểu đồ thống kê
+        </button>
+      </a>
+      <div id="report-button">
+        <button class="mr-3 btn btn-search button" (click)="exportExcelHaveDate()" type="button">
+          <i class="fa fa-plus"></i>Xuất excel
+        </button>
+        <button class=" btn btn-search button " type="button">
+          <i class="fa fa-reply"></i>Trở về
+        </button>
+        <small class="text-left" style="color: red" id="msg-date">{{msgChoice}}</small>
+      </div>
+    </div>
+  </div>
+</div>

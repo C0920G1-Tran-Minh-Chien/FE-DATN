@@ -1,0 +1,59 @@
+<div class="container mt-3 mb-3" id="print-me">
+  <form id="form" class="border p-3" [formGroup]="fromPrescription"  (ngSubmit)="sendData()">
+    <div class="d-flex justify-content-between ">
+      <p class="ml-3 mt-2 font-weight-bold">Thông tin toa thuốc</p>
+      <div class="d-flex">
+        <i class="icon ti-minus text-secondary mr-2"></i>
+        <i class="icon ti-close text-danger"></i>
+      </div>
+    </div>
+    <div class="">
+      <h2 class="text-center mb-3">Đơn thuốc</h2>
+      <div class="d-flex mb-3">
+        <label class="label-text">Tên đơn thuốc</label>
+        <input *ngIf="prescription != null" value="{{prescription.prescriptionName}}"  class="form-control" type="text"><br>
+      </div>
+      <div class="d-flex mb-3">
+        <label class="label-text">Triệu chứng</label>
+        <input *ngIf="prescription != null" value="{{prescription.symptom}}" class="form-control" type="text">
+      </div>
+      <div class="d-flex mb-3 justify-content-between">
+        <label class="label-text-min">Đối tượng</label>
+        <select>
+          <option>Trẻ em</option>
+          <option>Người lớn</option>
+          <option>Phụ nữ mang thai</option>
+        </select>
+        <label class="label-text-min">Số ngày uống</label>
+        <input type="number" *ngIf="prescription != null" value="{{prescription.numberOfDay}}" class="pl-2">
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <ul *ngFor="let drugOfBill of indicatives , let i = index" >
+        <li class="mb-3 ">
+          <div class="d-flex justify-content-between">
+            <label>{{i+1}}</label>
+            <select class="select" >
+              <option [selected]="true" [hidden]="true"  >{{drugOfBill.drug.drugName}}</option>
+              <option *ngFor="let drug of drugs" [value]="drug">{{drug.drugName}}</option>
+            </select>
+            <div>
+              <input [value]="drugOfBill.totalPill" class="vien" type="text"> Viên
+            </div>
+
+            <i class="fa fa-trash text-danger " (click)="openDeleteDialog(drugOfBill)"></i>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="d-flex flex-row-reverse pt-4 pb-5">
+      <button class=" btn btn-danger huy" type="button" routerLink="/sale" ><i class="fa fa-close"></i> Hủy</button>
+      <button class="mr-4 btn btn-print" type="button" (click)="htmlToPDF()" ><i class="fa fa-print"></i> In toa</button>
+      <button (click)="addToBill(indicatives)" class="mr-4 btn btn-success" type="button" ><i class="fa fa-plus"></i> Thêm vào hóa đơn</button>
+    </div>
+
+  </form>
+</div>
+

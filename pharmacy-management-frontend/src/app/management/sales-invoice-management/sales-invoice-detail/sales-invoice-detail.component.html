@@ -1,0 +1,68 @@
+<p style="color: red">{{ p }}</p>
+<div id="demo" *ngIf="data != null">
+  <div id="page" class="page">
+    <div class="header">
+      <div class="logo"><img src="" /></div>
+      <div class="company">C.Ty TNHH KHOACHIEN</div>
+    </div>
+    <br />
+    <div class="title">
+      HÓA ĐƠN BÁN HÀNG
+      <br />
+      -------oOo-------
+    </div>
+    <br />
+    <br />
+    <table style="border: 1px solid">
+      <tr>
+        <th>Mã hóa đơn</th>
+        <th>Loại hóa đơn</th>
+        <th>Tên khách hàng</th>
+        <th>Ngày lập</th>
+        <th>Giờ lập</th>
+        <th>Người lập</th>
+        <th>Tổng tiền</th>
+        <th>Ghi chú</th>
+      </tr>
+      <tr>
+        <td>{{ data.billSaleCode }}</td>
+        <td>{{ data.billSaleType }}</td>
+        <td>{{ data.customer.customerName }}</td>
+        <td>{{ data.date }}</td>
+        <td>{{ data.time }}</td>
+        <td>{{ data.employee.employeeName }}</td>
+        <td>{{ data.totalMoney }}</td>
+        <td>{{ data.billSaleNote }}</td>
+      </tr>
+    </table>
+    <div class="d-flex">
+      <div class="footer-left">
+        Đà nẵng, ngày 23 tháng 8 năm 2021<br />
+        Khách hàng
+      </div>
+      <div class="footer-left">
+        Đà nẵng, ngày 23 tháng 8 năm 2021<br />
+        Nhân viên
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="data != null" class="d-flex justify-content-center">
+  <button
+    class="btn btn-success mr-3"
+    type="button"
+    printSectionId="demo"
+    ngxPrint
+    (click)="dialogRef.close(true)"
+  >
+    <i class="fa fa-print" aria-hidden="true"></i> Có
+  </button>
+  <button
+    class="btn btn-danger mr-3"
+    type="button"
+    (click)="dialogRef.close(false)"
+  >
+    <i class="fa fa-reply"></i> No
+  </button>
+</div>

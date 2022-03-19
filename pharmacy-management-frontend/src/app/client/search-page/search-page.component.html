@@ -1,0 +1,77 @@
+<!--GIAO DIỆN KẾT QUẢ SEARCH-->
+<div class="py-lg-2">
+  <div class="container">
+    <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+      <div *ngIf="search == 'undefined' || search == ''; else elseBlockSearchTerm">
+        <a class="navbar-brand d-flex w-50 mr-auto" disabled>Vui lòng không bỏ trống ô tìm kiếm</a>
+      </div>
+      <ng-template #elseBlockSearchTerm>
+      <a class="navbar-brand d-flex w-50 mr-auto" disabled>Kết quả tìm kiếm cho &nbsp;<span
+        style="color: #242a61">"{{search}}"</span></a>
+      </ng-template>
+      <div class="navbar-collapse collapse navbar-toggle w-100" id="collapsingNavbar4">
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sắp xếp theo:</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn text-white mx-1" style="background: #567FEA; height: 38px; border-radius: 8px"
+               (click)="sortDrugByName()">Tên <span class="fa fa-sort text-white"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn text-white mx-1" style="background: #567FEA; height: 38px; border-radius: 8px"
+               (click)="toggleBooleanPrice ? sortDrugPriceAsc() : sortDrugPriceDesc()">Giá <span
+              class="fa fa-sort text-white"></span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <hr class="search-hr pb-lg-1">
+  </div>
+</div>
+<div *ngIf="drugs.length == 0; else elseBlockResult">
+  <div class="container">
+    <h2 class="py-3 text-center text-danger font-weight-bold ml-3" style="color: #242a61; text-transform: uppercase">
+      không có kết quả nào</h2>
+  </div>
+</div>
+<ng-template #elseBlockResult>
+  <div class="container">
+    <h3 class="text-danger font-weight-bold ml-3">Có {{drugs.length}} kết quả.</h3>
+    <br>
+    <div class="row pt-4">
+      <ng-container *ngFor="let drug of drugs | paginate : config ">
+        <div class="col-lg-3 col-md-6 col-6 col-sm-6 mb-4 mb-lg-5">
+          <div class="hovereffect">
+            <img class="img-responsive" width="255" height="250" src="{{drug.drugImageDetails}}"
+                 alt="">
+            <div class="overlay" style="padding-top: 60px">
+              <div *ngIf="drug.drugAmount == 0; else elseBlockAmount">
+                <a class="info" style="border-radius: 8px; background-color: #2FC1A6" [routerLink]="['details',drug.drugId]">CHI TIẾT</a>
+                <a class="info" style="border-radius: 8px; margin-top: 5px; background-color: indianred" disabled
+                   >HẾT HÀNG</a>
+              </div>
+              <ng-template #elseBlockAmount>
+                <a class="info" style="border-radius: 8px; background-color: #2FC1A6" [routerLink]="['details',drug.drugId]">CHI TIẾT</a>
+                <a class="info" style="border-radius: 8px; margin-top: 5px; background-color: #567FEA" (click)="addCart(drug.drugId, drug.drugName)">THÊM
+                  VÀO GIỎ</a>
+              </ng-template>
+            </div>
+            <div class="align-content-center pt-3">
+              <h4 class="text-dark font-weight-bold">{{drug.drugName}}</h4>
+              <div *ngIf="drug.drugAmount == 0; else elseBlockPrice">
+                <h3 class="text-danger">HẾT HÀNG</h3>
+              </div>
+              <ng-template #elseBlockPrice>
+                <h3 class="text-dark">Giá: {{drug.wholesalePrice | number:'1.0-0'}} VND / {{drug.unit}}</h3>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="container">
+      <pagination-controls previousLabel="Trang Trước" nextLabel="Trang Kế" class="text-right" (pageChange)="pageChanged($event)" ></pagination-controls>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,159 @@
+<div class="container">
+  <div class="container" style="background: #567FEA;height: 50px">
+    <h2 style="text-align: center;line-height: 50px">Danh sách thuốc</h2></div>
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Bộ lọc</legend>
+    <form class="border p-3">
+      <div class="container">
+        <div class="row">
+<!--          <div class="col-lg-1">Lọc theo nhóm thuốc {{drugName}}</div>-->
+          <div class="col-lg-3">
+            <select class="form-control"
+                    style="height: 30px; width: 200px;border-radius: 4px;border: 2px solid"
+                    [(ngModel)]="drugGroup"  name="field">
+              <option [selected]="" value=""> Chọn nhóm thuốc </option>
+                <option *ngFor="let item of drugGroupList" value="{{item.drugGroupId}}">{{item.drugGroupName}}</option>
+            </select>
+          </div>
+          <div class="col-lg-3">
+            <input class="form-control"
+                   style="height: 30px; width: 200px;border-radius: 4px;border: 2px solid" placeholder="Tìm kiếm theo tên thuốc"
+                   type="text" [(ngModel)]="drugName" name="drugName" >
+          </div>
+
+          <div class="col-lg-3">
+            <input class="form-control"
+                   style="height: 30px; width: 200px;border-radius: 4px;border: 2px solid" placeholder="Tìm kiếm theo hoạt chất"
+                   type="text" [(ngModel)]="activeElement" name="activeElement">
+          </div>
+          <div class="col-lg-2">
+            <button style="height: 30px" style="background: #506AEA;color: white" class=" btn btn-search" type="button" (click)="searchCTM()"><i
+              class="fa fa-search" aria-hidden="true"></i> Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </fieldset>
+</div>
+<div class="container pb-3">
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Danh sách thuốc</legend>
+    <div class="container">
+      <div class="row">
+        <table class="table table-bordered table-striped" *ngIf="!notFound" >
+          <thead class="thead">
+          <tr>
+            <th class="col-lg-0.5">STT</th>
+            <th class="col-lg-0.5">Mã thuốc</th>
+            <th class="col-lg-1">Nhóm thuốc</th>
+            <th class="col-lg-1">Tên thuốc</th>
+            <th class="col-lg-1">Hoạt chất</th>
+            <th class="col-lg-1">ĐVT</th>
+<!--            <th class="col-lg-1">ĐV QB</th>-->
+            <th class="col-lg-1">Số lượng</th>
+            <th class="col-lg-1">Giá nhập</th>
+            <th class="col-lg-1">Giá sỉ</th>
+            <th class="col-lg-1">Giá lẻ</th>
+            <th class="col-lg-0.5">%CK</th>
+            <th class="col-lg-0.5">%LN XS</th>
+            <th class="col-lg-0.5">%LN XL</th>
+            <th class="col-lg-0.5">VAT</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let drug of drugs, index as i" (click)="selectDrug(drug.drugId)"
+              [ngStyle]="{'background': drug.drugId == drugSelectedId ? selectedColor:''}">
+            <td>{{i + 1 + (indexPagination - 1) * 5}}</td>
+            <td>{{drug.drugCode}}</td>
+            <td>{{drug.drugGroup}}</td>
+            <td>{{drug.drugName}}</td>
+            <td>{{drug.activeElement}}</td>
+            <td>{{drug.unit}}</td>
+<!--            <td>{{drug.conversionUnit}}</td>-->
+            <td>{{drug.drugAmount| number: '1.2-2'}}</td>
+            <td>{{drug.importPrice| number: '1.2-2'}}</td>
+            <td>{{drug.wholesalePrice | number: '1.2-2'}}</td>
+            <td>{{drug.retailPrice | number: '1.2-2'}}</td>
+            <td>{{drug.discountRate| number: '1.2-2'}}</td>
+            <td>{{drug.wholesaleProfitRate}}</td>
+            <td>{{drug.retailProfitRate}}</td>
+            <td>{{drug.vat| number: '1.2-2'}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <table *ngIf="notFound" class="table">
+          <tr>
+            <td style="text-align: center"><h2>Không tìm thấy kết quả</h2></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end" *ngIf="!notFound">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination" *ngIf="indexPagination == 1">
+          <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+          <li class="page-item"><a class="page-link" style="background: #63B8FF; color: white;" (click)="previousPage()">{{indexPagination}}</a></li>
+          <li class="page-item" *ngIf="indexPagination +1 <= totalPagination"  (click)="this.nextPage()"><a
+            class="page-link">{{indexPagination + 1}}</a></li>
+          <li class="page-item" *ngIf="indexPagination +2 <= totalPagination" (click)="this.nextPage()"><a class="page-link"
+                                                                                 (click)="nextPage()">{{indexPagination + 2}}</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
+        </ul>
+        <ul class="pagination" *ngIf="indexPagination > 1 && indexPagination<totalPagination">
+          <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+          <li class="page-item" *ngIf="indexPagination -1 >= 1"><a class="page-link"
+                                                                   (click)="previousPage()">{{indexPagination - 1}}</a>
+          </li>
+          <li class="page-item"><a class="page-link" style="background: #63B8FF; color: white;">{{indexPagination}}</a></li>
+          <li class="page-item" *ngIf="indexPagination +1 <= totalPagination"><a class="page-link"
+                                                                                 (click)="nextPage()">{{indexPagination + 1}}</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
+        </ul>
+
+        <ul class="pagination" *ngIf="indexPagination == totalPagination && indexPagination !=1">
+          <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+          <li class="page-item" *ngIf="indexPagination -2 >= 1"><a class="page-link"
+                                                                   (click)="previousPage()">{{indexPagination - 2}}</a>
+          </li>
+          <li class="page-item"><a class="page-link">{{indexPagination - 1}}</a></li>
+          <li class="page-item"><a class="page-link" style="background: #63B8FF; color: white;" (click)="nextPage()">{{indexPagination}}</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
+        </ul>
+      </nav>
+    </div>
+  </fieldset>
+  <div class="container mt-3 mb-5">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-right">
+              <button [routerLink]="['/drug/create']" class="mr-3 btn btn-create button" type="button"><i
+                class="fa fa-plus"></i> Thêm
+              </button>
+              <button class="mr-3 btn btn-edit button" *ngIf="!notSelected" (click)="updateDialog()"><i
+                class="fa fa-edit"></i> Sửa
+              </button>
+              <button class="mr-3 btn btn-edit button" *ngIf="notSelected" (click)="notificationDialog()"><i
+                class="fa fa-edit"></i> Sửa
+              </button>
+              <button class="mr-3 btn btn-danger button" *ngIf="!notSelected" (click)="deleteDialog()"><i
+                class="fa fa-trash-o"></i> Xóa
+              </button>
+              <button class="mr-3 btn btn-danger button" *ngIf="notSelected" (click)="notificationDialog()"><i
+                class="fa fa-trash-o"></i> Xóa
+              </button>
+              <button class=" btn btn-return button " routerLink="/" type="button"><i
+                class="fa fa-reply"></i> Trở về
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

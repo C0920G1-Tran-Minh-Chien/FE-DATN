@@ -1,0 +1,107 @@
+:root {
+  --thead-color: #567FEA;
+  --btn-back-color: #567FEA;
+  --btn-seach-color: #2fc1a6;
+}
+
+
+.btn-return {
+  background-color: var(--btn-back-color);
+  color: white;
+}
+
+.btn-search {
+  background-color: var(--btn-seach-color);
+  color: white;
+}
+
+.btn-return:hover, .btn-search:hover {
+  color: white;
+}
+
+#content fieldset #left select {
+  width: 35%;
+}
+
+@media only screen and (max-width: 1200px) {
+  #content fieldset #left {
+    display: grid !important;
+    justify-content: normal;
+  }
+
+  #content fieldset #left div:first-child {
+    padding-left: 20px;
+  }
+
+  #content table tr th:nth-child(6), #content table tr td:nth-child(6) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  #content table tr th:nth-child(4), #content table tr td:nth-child(4),
+  #content table tr th:nth-child(6), #content table tr td:nth-child(6),
+  #content table tr th:nth-child(7), #content table tr td:nth-child(7) {
+    display: none;
+  }
+}
+
+
+/*region edit error fieldset*/
+
+fieldset.scheduler-border {
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow: 0px 0px 0px 0px #000;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+
+/*endregion*/
+
+/*#region table scroll*/
+.scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: white;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #567FEA;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.scroll {
+  height: 300px;
+  overflow: auto;
+
+}
+
+.outer {
+  overflow-y: auto;
+  height: 300px;
+  width: 100%;
+
+}
+
+
+.outer th {
+  text-align: left;
+  top: 0;
+  position: sticky;
+  background-color: #567FEA;
+}
+
+/*#endregion*/

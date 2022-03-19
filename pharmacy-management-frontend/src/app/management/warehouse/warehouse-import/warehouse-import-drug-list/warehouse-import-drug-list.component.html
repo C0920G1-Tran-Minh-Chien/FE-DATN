@@ -1,0 +1,147 @@
+
+<div class="row white-block"></div>
+
+<div class="row">
+  <div class="col-md-12" style="text-align: center">
+    <h2 class="pt-3">Quản lý nhập kho</h2>
+  </div>
+</div>
+
+
+<div class="row justify-content-center">
+  <form [formGroup]="searchBill" (ngSubmit)="search(page)">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Bộ lọc</legend>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="form-group d-flex">
+                <label>Từ ngày:</label>
+                <input type="date" formControlName="startDate">
+              </div>
+              <div style="color:red;" *ngFor="let validate of validate_message.date">
+                <div
+                  *ngIf="searchBill.get('startDate')?.hasError(validate.type) && searchBill.get('startDate')?.touched">{{validate.message}}</div>
+              </div>
+              <div style="color:red;" *ngIf="searchBill.hasError('validDate')">
+                <small>Ngày bắt đầu không lớn hơn ngày kết thúc</small>
+              </div>
+              <div style="color:red;" *ngIf="searchBill.hasError('validDateStartNow')">
+                <small>Ngày Không lớn hơn hiện tại</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="form-group d-flex">
+                <label>Đến ngày:</label>
+                <input type="date" formControlName="endDate">
+              </div>
+              <div style="color:red;" *ngFor="let validate of validate_message.date">
+                <div
+                  *ngIf="searchBill.get('endDate')?.hasError(validate.type) && searchBill.get('endDate')?.touched">{{validate.message}}</div>
+              </div>
+              <div style="color:red;" *ngIf="searchBill.hasError('validDateEndNow')">
+                <small>Ngày Không lớn hơn hiện tại</small>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="form-group " style="margin-left: 75px">
+                  <select class="width" style="width: 150px" formControlName="sortOrder">
+                    <option value="">Giảm dần</option>
+                    <option value="asc">Tăng dần</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="form-group d-flex">
+                <label>Mã HĐ:</label>
+                <input type="text" formControlName="billCode" placeholder="Mã Hóa Đơn">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <button data-toggle="modal" data-target="#exampleModal" style="margin-left: 76px;width: 150px;background: #567FEA;color: white "
+                      class="mr-4 btn  button btw"
+                      type="submit"><i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Danh sách hóa đơn</legend>
+      <div class="scroll outer">
+        <table class="table table-bordered table-striped table- table-hover">
+          <thead class="head justify-content-center">
+          <tr>
+            <th>STT</th>
+            <th>Mã HĐ</th>
+            <th>Số CT</th>
+            <th>Ngày lập</th>
+            <th>Giờ lập</th>
+            <th>Tổng tiền(VND)</th>
+            <th>Nợ hóa đơn(VND)</th>
+            <th>Nhà cung cấp</th>
+            <th>Địa chỉ</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let bill of bills;index as i">
+          <tr (click)="getId(bill.billId,bill.systemCode)"
+              [class.selected]="bill === selectedImportbill" (click)=changColor(bill)>
+
+            <td>{{1 + i + page * 5}}</td>
+            <td>{{bill.systemCode}}</td>
+            <td>{{bill.accountingVoucher}}</td>
+            <td>{{bill.date | date:'dd/MM/yyyy'}}</td>
+            <td>{{bill.time}}</td>
+            <td style="text-align: center">{{bill.totalMoney | currency: 'VND' : ' ': '1.0-0'}}</td>
+            <td style="text-align: center">{{bill.ownBill | currency: 'VND' : ' ': '1.0-0'}}</td>
+            <td>{{bill.manufacturerName}}</td>
+            <td>{{bill.manufacturerAddress}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <h1 class="text-center text-danger" *ngIf="bills.length == 0"><i class="fa fa-search" aria-hidden="true"></i>Không
+          tìm thấy hóa đơn</h1>
+      </div>
+      <div class="d-flex justify-content-end ml-4">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" [hidden]="page==0"><a class="page-link" (click)="previousPage()">Trước</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page==0"(click)="choosePage(page)">{{page+1}}</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page-1>0">...</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page>0">{{page+1}}</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page<totalPage-1"(click)="choosePage(page+1)">{{page+2}}</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page<totalPage-1"(click)="choosePage(page+2)">{{page+3}}</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page+1<totalPage-1">...</a></li>
+            <li class="page-item"><a class="page-link"*ngIf="page<totalPage-2"(click)="lastPage(totalPage)">{{totalPage+1}}</a></li>
+            <li class="page-item" [hidden]="page==totalPage"><a class="page-link" (click)="nextPage()">Sau</a></li>
+          </ul>
+        </nav>
+      </div>
+    </fieldset>
+
+
+    <div class="form-group row text-right pt-2">
+      <div class="col">
+        <button  (click)="addNewImportBill()"
+                class="mx-2 btn btn-create button"
+                type="button"(click)="addNewImportBill()" ><i class="fa fa-plus"></i> Thêm
+        </button>
+        <button (click)="openDialogDelete()" data-toggle="modal" data-target="#exampleModal1"
+                class="mx-2 btn btn-danger button"
+                type="button">
+          <i class="fa fa-trash-o"></i> Xóa
+        </button>
+        <button data-toggle="modal" data-target="#exampleModal2"
+                class="ml-2 btn btn-return button"
+                type="button"><i
+          class="icon-sidebar fa fa-reply"></i> Trở về
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,243 @@
+<div class="container ">
+  <div class="container" style="background: #567FEA;height: 50px"><h2
+    style="text-align: center;line-height: 50px">DANH SÁCH KHÁCH HÀNG</h2></div>
+  <div class="container">
+    <form>
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Bộ lọc</legend>
+        <div class="border p-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-12 col-sm-12">
+                <label for="sl2" class="label-text" style="">Sắp xếp</label>
+                <select (input)="sort(typeSort.value)" #typeSort id="sl2"
+                        style="height: 30px; width: 180px;border-radius: 4px;border: 2px solid"
+                        type="text">
+                  <option value="customer_code">Mã khách hàng</option>
+                  <option value="customer_group">Nhóm khách hàng</option>
+                  <option value="customer_name">Tên khách hàng</option>
+                  <option value="customer_address">Địa chỉ</option>
+                  <option value="customer_phone">Điện thoại</option>
+                </select>
+              </div>
+              <div class="col-lg-3 col-md-12 col-sm-12">
+                <label for="sl1" class="label-text">Lọc theo</label>
+                <select id="sl1"
+                        style="height: 30px; width: 180px;border-radius: 4px; border: 2px solid"
+                        type="text" #typeSearch>
+                  <option value="customer_code">Mã khách hàng</option>
+                  <option value="customer_name">Tên khách hàng</option>
+                  <option value="customer_address">Địa chỉ</option>
+                  <option value="customer_phone">Điện thoại</option>
+                </select>
+              </div>
+              <div class="col-lg-3 col-md-8 col-sm-8">
+                <label for="search" class="label-text">Nội dung tìm kiếm</label>
+                <input id="search" style="border: 2px solid" type="text" #searchName [(ngModel)]="keyWord"
+                       placeholder="Từ khóa ..."
+                       style="width: 100%;height: 30px;border: 2px solid" class="form-control">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-4">
+                <button (click)="chooseTypeSearch(typeSearch.value,searchName.value)" style="margin-top: 27px;height: 30px; background-color: #567FEA;
+  color: white" class=" btn ve" type="button">
+                  <i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+  </div>
+  <div class="container pb-3">
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Danh sách khách hàng</legend>
+      <div class="scroll outer">
+        <table class="table table-bordered table-striped ">
+          <thead style="background: #567FEA ; color: white">
+          <tr>
+            <th>STT</th>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng</th>
+            <th>Tuổi</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Nhóm khách hàng</th>
+            <th>Ghi Chú</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of customersPagination,index as i " role="button"
+              (click)="sendId(c.customerId)">
+            <ng-container *ngIf="id==c.customerId">
+              <td style="background: #62b8ff">{{i + 1 + (indexPagination - 1) * 5}}</td>
+              <td style="background: #62b8ff">{{c.customerCode}}</td>
+              <td style="background: #62b8ff">{{c.customerName}}</td>
+              <td style=" text-align: right ; background: #62b8ff">{{c.customerAge}}</td>
+              <td style="background: #62b8ff">{{c.customerAddress}}</td>
+              <td style="background: #62b8ff ;text-align: right">{{c.customerPhone}}</td>
+              <td style="background: #62b8ff">{{c.customerGroup.customerGroupName}}</td>
+              <td style="background: #62b8ff">{{c.customerNote}}</td>
+            </ng-container>
+            <ng-container *ngIf="id!==c.customerId">
+              <td>{{i + 1 + (indexPagination - 1) * 5}}</td>
+              <td>{{c.customerCode}}</td>
+              <td>{{c.customerName}}</td>
+              <td style="text-align: right ">{{c.customerAge}}</td>
+              <td>{{c.customerAddress}}</td>
+              <td style="text-align: right ">{{c.customerPhone}}</td>
+              <td>{{c.customerGroup.customerGroupName}}</td>
+              <td>{{c.customerNote}}</td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation example" class="d-flex justify-content-end">
+          <ul class="pagination">
+            <!--                <li class="page-item"><a class="page-link" (click)="firstPage()">Trang Đầu</a></li>-->
+            <li class="page-item">
+              <a class="page-link" (click)="previousPage()">
+                Trước
+
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link">{{indexPagination}}/ {{totalPagination}}</a></li>
+            <li class="page-item"><a class="page-link" (click)="nextPage()">
+              Sau
+            </a>
+            </li>
+            <!--                <li class="page-item"><a class="page-link" (click)="lastPage()">Trang Cuối</a></li>-->
+          </ul>
+        </nav>
+<!--        <div class="row paging-custom" >-->
+<!--          <div class="col-6">-->
+<!--          </div>-->
+<!--          <div class="clearfix col-6">-->
+<!--            <div class="mt-3">-->
+<!--              <div class="d-flex justify-content-end">-->
+<!--                <nav aria-label="Page navigation example">-->
+<!--                  <ul class="pagination">-->
+<!--                    &lt;!&ndash;                <li class="page-item"><a class="page-link" (click)="firstPage()">Trang Đầu</a></li>&ndash;&gt;-->
+<!--                    <li class="page-item">-->
+<!--                      <a class="page-link" (click)="previousPage()">-->
+<!--                        Trước-->
+
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item"><a class="page-link">{{indexPagination}}/ {{totalPagination}}</a></li>-->
+<!--                    <li class="page-item"><a class="page-link" (click)="nextPage()">-->
+<!--                      Sau-->
+<!--                    </a>-->
+<!--                    </li>-->
+<!--                    &lt;!&ndash;                <li class="page-item"><a class="page-link" (click)="lastPage()">Trang Cuối</a></li>&ndash;&gt;-->
+<!--                  </ul>-->
+<!--                </nav>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+    </fieldset>
+
+    <div class="row">
+      <div class="col-6">
+      </div>
+      <div class="col-6 ">
+        <div class="row">
+          <div class="col-3">
+            <button class="btn button-custom" style="background: #2fc1a6;color: white"
+                    type="button"><i class="fa fa-plus"></i> Thêm
+            </button>
+          </div>
+          <div class="col-3">
+            <button style="background: #242A61;color: white" data-toggle="modal" data-target="#exampleModal"
+                    class="a btn button-custom"><i
+              class="fa fa-pencil-square-o"
+              aria-hidden="true"></i>
+              Sửa
+            </button>
+          </div>
+          <div class="col-3">
+            <!-- Button trigger modal -->
+            <button class=" a   btn btn-danger button-custom" data-toggle="modal"
+                    data-target="#exampleModal" (click)="getCustomerDelete()"><i
+              class="fa  fa-trash-o" aria-hidden="true"></i> Xóa
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa khách hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div *ngIf="customerDelete">
+                      Bạn có muốn xóa khách hàng <i> <b style="color: red">{{customerDelete.customerName}}  </b></i>
+                      không
+                      ?
+                    </div>
+                    <div *ngIf="!customerDelete">
+                      Chưa chọn khách hàng để xóa
+                    </div>
+                  </div>
+                  <div [hidden]="!customerDelete" class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reset()">Không
+                    </button>
+                    <button [hidden]="!customerDelete" [disabled]="!customerDelete" type="button" class="btn btn-danger"
+                            data-dismiss="modal" data-toggle="modal" data-target="#myModal"
+                            (click)="deleteCustomer()">Xóa
+                    </button>
+                  </div>
+                  <div [hidden]="customerDelete" class="modal-footer">
+                    <button type="button" class="mr-5 btn btn-success" data-dismiss="modal" (click)="reset()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                           class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                      Trở về
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <button class="btn button-custom" style="color: white;
+  background-color: #567FEA;" routerLink="/">
+              <i class="icon-sidebar fa fa-reply"></i>
+              Trở về
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Thông Báo</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        Đã xóa khách hàng thành công
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" >Trở về</button>
+      </div>
+    </div>
+  </div>
+</div>

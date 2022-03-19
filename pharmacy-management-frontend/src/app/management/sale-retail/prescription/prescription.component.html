@@ -1,0 +1,56 @@
+<div id="content" class="container mt-1">
+  <div class=" mb-4">
+    <h2 class="pt-3 pb-3 text-center">Danh sách toa thuốc kê sẵn</h2>
+    <form class="border p-3">
+
+      <div class="d-flex justify-content-between">
+        <label>Tìm kiếm theo : </label>
+        <select class="select-field " [(ngModel)]="fieldSearch" name="fieldSearch">
+          <option >Tên toa thuốc</option>
+          <option >Triệu chứng</option>
+        </select>
+        <div>
+          <input type="text" [(ngModel)]="valueSearch" name="valueSearch" class="search ">
+          <button class="btn btn-search text-light" (click)="search()" ><i class=" fa fa-search"></i> Xem</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div class=" pb-3">
+    <div class="scroll outer">
+      <table class="table table-bordered table-striped">
+        <thead class="thead">
+        <tr>
+          <th>Mã toa thuốc</th>
+          <th>Tên toa thuốc</th>
+          <th>Đối tượng</th>
+          <th>Triệu chứng</th>
+          <th>ghi chú</th>
+
+
+        </tr>
+        </thead>
+        <tbody *ngFor="let p of prescriptions, let i = index">
+
+        <tr id="{{i}}" (click)="showView(p.prescriptionId) " (click) = "showChoose(p)" [class.selected] = "p === pres">
+          <td>{{p.prescriptionCode + p.prescriptionId}}</td>
+          <td>{{p.prescriptionName}}</td>
+          <td>{{p.object}}</td>
+          <td>{{p.symptom}}</td>
+          <td>{{p.note}}</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+  <div class="d-flex justify-content-end pt-4 pb-5">
+    <button (click)="showDetail()" class="mr-5 btn btn-pay" type="button" ><i class="fa fa-plus"></i> Chi tiết toa thuốc </button>
+    <button class="mr-5 btn ve" type="button" ><i class="fa fa-undo" routerLink="/"> Trở về</i></button>
+  </div>
+</div>
+

@@ -1,0 +1,42 @@
+<p style="color: red">{{message}}</p>
+<div id="demo" >
+    <h1>Chi tiết hóa đơn</h1>
+    <table>
+      <tr>
+        <td>Mã hóa đơn : {{exportBillCode}}</td>
+      </tr>
+      <tr>
+        <td>Loại hóa đơn: {{exportBillType.exportBillTypeName}}</td>
+      </tr>
+      <tr>
+        <td>Ngày lập : 	{{exportBillDate | date:"yyyy-MM-dd" }}</td>
+
+      </tr>
+      <tr>
+        <td>Giờ lập : {{exportBillDate | date:"HH:mm" }} </td>
+
+      </tr>
+      <tr>
+        <td>Người lập: {{employee.employeeName}} </td>
+
+      </tr>
+<!--      <tr>-->
+<!--        <td>Tổng tiền : {{totalMoney}} </td>-->
+
+<!--      </tr>-->
+      <tr>
+        <td>Nhà cung cấp : {{manufacturer.manufacturerName}} </td>
+
+      </tr>
+      <tr>
+        <td>Lý do : {{exportBillReason}}</td>
+      </tr>
+
+
+    </table>
+</div>
+<div *ngIf="data != null">
+  <button class="btn btn-success mr-3" type="button" printSectionId = "demo" ngxPrint (click)="print()" >Có</button>
+  <button class="btn btn-danger mr-3" type="button" (click)="dialogRef.close(false)">Không</button>
+
+</div>

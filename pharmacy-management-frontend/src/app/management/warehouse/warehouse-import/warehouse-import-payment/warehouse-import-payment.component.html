@@ -1,0 +1,57 @@
+<div class="col-md-12 col-sm-12 col-lg-12 " formGroupName="payment">
+  <fieldset class="scheduler-border ">
+    <legend class="scheduler-border">Thanh toán</legend>
+    <div class="mb-3">
+    </div>
+    <div class="mb-3">
+      <div class="w-100 d-inline-flex">
+        <label class="col-6 pl-0">%Chiết khấu</label>
+        <input formControlName="discount"  class="form-control-sm border-dark w-100"
+               type="text" maxlength="3">
+        <small
+          *ngIf="paymentForm.controls.payment.get('discount')?.hasError('pattern') && paymentForm.controls.payment.get('discount').touched"
+          class="d-block position-absolute text-danger col-4 px-0 pt-4">chiết khấu là số </small>
+        <small
+          *ngIf="paymentForm.controls.payment.get('discount')?.hasError('min') && paymentForm.controls.payment.get('discount').touched"
+          class="d-block position-absolute text-danger col-4 px-0 pt-4">chiết khấu không nhỏ hơn 0 </small>
+        <small
+          *ngIf="paymentForm.controls.payment.get('discount')?.hasError('max') && paymentForm.controls.payment.get('discount').touched"
+          class="d-block position-absolute text-danger col-4  px-0 pt-4">chiết khấu không lớn hơn 100 </small>
+        <small
+          *ngIf="paymentForm.controls.payment.get('discount')?.hasError('required') && paymentForm.controls.payment.get('discount').touched"
+          class="d-block position-absolute text-danger col-4 px-0  pt-4">chiết khấu không được trống</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="w-100 d-inline-flex">
+        <label class="col-6 pl-0">Tổng tiền</label>
+        <input formControlName="totalMoney"
+               class="form-control-sm border-dark w-100"
+               type="text">
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="w-100 d-inline-flex">
+        <label class="col-6 pl-0">Thanh toán</label>
+        <input formControlName="prepayment" class="form-control-sm border-dark w-100" type="text">
+      </div>
+    </div>
+    <div class="mb-4">
+      <div class="w-100 d-inline-flex">
+        <label class="col-6 pl-0">Còn lại</label>
+        <input [value]="cashInReturn" class="form-control-sm border-dark w-100" type="text">
+
+      </div>
+    </div>
+  </fieldset>
+  <div class="container d-flex justify-content-end pt-4 pb-5">
+    <div class="d-flex">
+      <button class="mr-4 btn btn-primary button"
+              type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Hoàn tất
+      </button>
+      <button class="mr-4 btn btn-return button" type="button" (click)="onNoClick()"><i class="icon-sidebar fa fa-reply text-warning"></i>
+        Trở về
+      </button>
+    </div>
+  </div>
+</div>

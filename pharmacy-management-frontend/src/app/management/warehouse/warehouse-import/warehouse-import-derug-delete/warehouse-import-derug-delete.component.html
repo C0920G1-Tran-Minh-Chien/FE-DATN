@@ -1,0 +1,31 @@
+<!--<div class="container" style="background: #567FEA;height: 50px"><h2-->
+<!--  style="text-align: center;line-height: 50px">XÓA HÓA ĐƠN</h2>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--  Bạn có muốn xóa hóa đơn có mã <span style="color: red">({{data.name}})</span> Không ?-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--  <button mat-dialog-close style="background: #567FEA" type="button" class="btn ve" data-dismiss="modal"><i-->
+<!--    class="icon-sidebar fa fa-reply "></i>-->
+<!--    Trở về-->
+<!--  </button>-->
+<!--  <button (click)="deleteBill()" type="submit" class="btn btn-danger">Xóa</button>-->
+<!--</div>-->
+
+<div class="modal-header">
+  <h3 class="modal-title font-weight-bold" >Xóa hóa đơn</h3>
+  <button type="button" class="close" aria-hidden="true" >&times;</button>
+</div>
+<div class="modal-body" >
+  <input hidden type="text" name="drugId" id="customerId">
+  <p>Bạn có chắc muốn xóa mã hóa đơn: <span class="text-danger font-weight-bold">{{data.name}}</span></p>
+  <p class="text-warning"><small>Hành đồng này có thể không thể hoàn lại</small></p>
+</div>
+<div class="modal-footer">
+  <button class=" btn btn-return button " style="font-size: 14px; width: 85px" type="button" mat-dialog-close><i
+    class="fa fa-reply"></i> Trở về
+  </button>
+  <button class="mr-3 btn btn-danger button" style="font-size: 14px; width: 85px" (click)="deleteBill()"><i
+    class="fa fa-trash-o"></i> Xóa
+  </button>
+</div>

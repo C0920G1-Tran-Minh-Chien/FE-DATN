@@ -1,0 +1,90 @@
+<div id="content" class="container">
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Thông tin tra cứu</legend>
+    <div class="row border pt-4" id="left">
+      <form class="col mb-3 text-right pr-0 d-flex" [formGroup]="myChoose" (click)="selectLookup()">
+        <label class="label-text" style="line-height: 38px; width: 100px;">Tra cứu theo: &nbsp; </label>
+        <select name='selectItem' class="form-control" formControlName="selectItem">
+          <option *ngFor="let i of lookups" value="{{i.eng}}" [selected]="selectItem == i.eng">{{i.vn}}</option>
+        </select>
+        <select name="" class="form-control ml-1" formControlName="selectAttribute">
+          <option value="" [selected]="selectItem">Chọn tất cả</option>
+          <option *ngFor="let m of attributes.manufacturer" value="{{m.eng}}"
+                  [hidden]="selectItem != 'manufacturer'" [selected]="selectAttribute == m.eng">{{m.vn}}</option>
+          <option *ngFor="let c of attributes.customer" value="{{c.eng}}"
+                  [hidden]="selectItem != 'customer'" [selected]="selectAttribute == c.eng">{{c.vn}}</option>
+
+        </select>
+
+      </form>
+      <div class="col mb-3 d-flex pl-1">
+        <form class="d-flex" [formGroup]="mySearch">
+          <div *ngIf="!(selectAttribute == 'groupId')">
+            <input type="text" class="form-control" formControlName="inputLookup" [value]="inputLook">
+          </div>
+          <div *ngIf="(selectAttribute == 'groupId')">
+            <select formControlName="inputLookup" name="" class="form-control" style="width: 208px">
+              <option  *ngFor="let group of customerGroup" [value]="group.customerGroupId" [selected]="(inputLook == group.customerGroupId)">{{group.customerGroupName}}</option>
+            </select>
+          </div>
+          <button class="btn ml-1"
+                  style="background: #2fc1a6; color: white; max-height: 38px; font-size: 15px; min-width: 38px"
+                  type="submit" (click)="search()">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            Tra cứu
+          </button>
+        </form>
+        <button class="btn ml-1"
+                style="background: #567FEA; color: white; max-height: 38px; font-size: 15px; min-width: 38px" (click)="backLookup()">
+          <i class="fa fa-reply" aria-hidden="true"></i>
+          Trở về
+        </button>
+      </div>
+    </div>
+
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Kết quả</legend>
+      <h2 class="text-danger text-center">{{messageError}}</h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead" style="background: #567FEA!important; color: white">
+        <tr>
+          <th *ngFor="let th of thead">{{th}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let td of customers">
+          <td>{{td.customerCode}}</td>
+          <td>{{td.customerName}}</td>
+          <td>{{td.customerAge}}</td>
+          <td>{{td.customerAddress}}</td>
+          <td>{{td.customerPhone}}</td>
+          <td>{{td.customerGroup.customerGroupName}}</td>
+          <td>{{td.customerNote}}</td>
+        </tr>
+        <tr *ngFor="let td of manufacturers">
+          <td>{{td.manufacturerCode}}</td>
+          <td>{{td.manufacturerName}}</td>
+          <td>{{td.manufacturerAddress}}</td>
+          <td>{{td.manufacturerPhoneNumber}}</td>
+          <td>{{td.manufacturerNote}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+
+      <div class="d-flex justify-content-end" *ngIf="thead && !messageError">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" *ngIf="page"><a class="page-link" (click)="previous()">Trước</a></li>
+            <li class="page-item" *ngFor="let p of pages; let i=index">
+              <a class="page-link" (click)="setPage(i)" [style]="(page == i) ? 'background: #567FEA; color: white': ''">{{i + 1}}</a>
+            </li>
+            <li class="page-item"><a class="page-link" (click)="next()" *ngIf="page<pages.length-1">Tiếp</a></li>
+          </ul>
+        </nav>
+      </div>
+
+
+    </fieldset>
+  </fieldset>
+</div>

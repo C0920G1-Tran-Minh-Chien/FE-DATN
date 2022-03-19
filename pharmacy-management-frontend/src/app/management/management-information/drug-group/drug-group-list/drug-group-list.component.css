@@ -1,0 +1,110 @@
+.thuoc {
+  padding-left: 10px;
+  border-radius: 4px;
+  outline: none;
+  padding-bottom: 3px;
+  width: 60%;
+}
+.outer {
+  overflow-y: auto;
+  height: 300px;
+  width: 100%;
+  -layout: fixed;
+}
+
+.outer th {
+  text-align: left;
+  top: 0;
+  position: sticky;
+  background-color: white;
+}
+.btn-edit {
+  background-color: #242a61;
+  color: white;
+}
+
+
+.btn-create {
+  background-color: #2fc1a6;
+  color: white;
+}
+.btn-create:hover {
+  background-color: #52B6C1;
+}
+
+
+.btn-edit:hover {
+  background-color: #2C4361;
+  color: white;
+}
+.btn-back {
+  background-color: #567FEA;
+  color: white;
+}
+
+
+
+.btn-back:hover {
+  background-color: royalblue;
+  color: white;
+}
+p{
+  color: red; font-size: 12px;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: white;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #567FEA;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.scroll {
+  height: 300px;
+  overflow: auto;
+
+}
+h2{
+  background-color:#567FEA ;
+  text-align: center;
+}
+
+
+button{
+  width: 90px;
+}
+fieldset.scheduler-border {
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow: 0px 0px 0px 0px #000;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+.selected {
+  background: #63B8FF !important;
+  color: white;
+}
+.btn-create {
+  background-color: #2fc1a6;
+  color: white;
+}
+.btn-create:hover {
+  background-color: #52B6C1;
+}
+

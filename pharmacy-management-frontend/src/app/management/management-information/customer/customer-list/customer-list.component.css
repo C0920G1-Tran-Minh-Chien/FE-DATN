@@ -1,0 +1,26 @@
+.scheduler-border{
+  boder: 1px solid black !important;
+}
+fieldset.scheduler-border {
+  border: 1px groove !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow: 0px 0px 0px 0px #000;
+  box-shadow:  0px 0px 0px 0px #000;
+}
+legend.scheduler-border {
+  font-size: 20px !important;
+  font-weight: normal !important;
+  text-align: left !important;
+  width: inherit;
+  padding: 0 15px;
+  border-bottom: none;
+}
+.button-custom{
+  width: 100%;
+  font-size: 80%;
+}
+.paging-custom{
+  width: 100%;
+  font-size: 80%;
+}

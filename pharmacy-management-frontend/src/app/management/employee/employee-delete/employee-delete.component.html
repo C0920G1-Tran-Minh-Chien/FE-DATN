@@ -1,0 +1,20 @@
+<div class="" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 style="margin-left: 60px"><dt class="modal-title" style="color: red">Xác nhận xóa nhân viên</dt></h2>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      </button>
+    </div>
+    <div class="modal-body">
+            <h3>Bạn có muốn xóa nhân viên này không : </h3>
+            <p>+ Mã nhân viên : {{data.employeeCode}}</p>
+            <p>+ Tên nhân viên :{{data.employeeName}}</p>
+
+    </div>
+    <div class="modal-footer" style="margin-right: 80px">
+      <button class="btn btn-danger" id="delete" type="button" (click)="dialogRef.close(true)">Xóa</button>
+      <button class="btn btn-primary " id="cancel" type="button" (click)="dialogRef.close(false)">Hủy</button>
+
+    </div>
+  </div>
+</div>

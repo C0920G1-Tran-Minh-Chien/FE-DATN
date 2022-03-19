@@ -1,0 +1,162 @@
+<!--ADS-->
+<div class="container pt-5">
+  <div class="row">
+    <div class="col-8 padding-5px">
+      <div
+        id="adCarousel1"
+        class="carousel slide"
+        data-ride="carousel"
+        data-interval="2500"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item">
+            <a [routerLink]="['location']" routerLinkActive="active"
+              ><img
+                class="d-block w-100 h-100"
+                src="https://botyan.com/wp-content/uploads/2020/09/icon-nhathuoc.png?fbclid=IwAR3-1zhf0oUn38dgdUO6UYRDROJMU35KDj-DL4vJXw37zDRz_58Hdk35M48"
+                alt="First slide"
+            /></a>
+          </div>
+          <div class="carousel-item active">
+            <a [routerLink]="['health-tips']" routerLinkActive="active"
+              ><img
+                class="d-block w-100 h-100"
+                src="https://file1.dangcongsan.vn/data/0/images/2020/04/01/tranlyle/screenshot-1822-1583175223-width1366height768.png?dpi=150&quality=100&w=680&fbclid=IwAR0_dNXKKJL_fbRoZQiATuzfsO4zyEBLEOIhVe0KtxZZ-kC4IruxXh_Z9Ss"
+                alt="Second slide"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 padding-5px">
+      <img
+        class="d-block w-100 h-100"
+        src="https://scontent.fdad3-1.fna.fbcdn.net/v/t1.6435-9/203259242_796048051298976_5299197484578524125_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=730e14&_nc_ohc=4ORdBqUjBxkAX-_oda6&_nc_ht=scontent.fdad3-1.fna&oh=00_AT_GtEl16AOLiH7JKy_XElEAsLc_o0X4Ee1Gfmw2f6LCAw&oe=625394F5"
+        alt="Vertical AD"
+      />
+    </div>
+  </div>
+</div>
+<div class="container pt-5">
+  <div id="adCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <a [routerLink]="['hot-deals']" routerLinkActive="active"
+          ><img
+            class="d-block w-100"
+            src="https://s3-ap-southeast-1.amazonaws.com/pharmacity-ecm-asm-dev/main-banner-t8/921x280-da-xinh-don-he-082021-01-01-2.webp"
+            alt="Third slide"
+        /></a>
+      </div>
+      <div class="carousel-item active">
+        <a [routerLink]="['hot-deals']" routerLinkActive="active"
+          ><img
+            class="d-block w-100"
+            src="https://s3-ap-southeast-1.amazonaws.com/pharmacity-ecm-asm-dev/main-banner-t8/921x280-web-ban-82021-04-2.webp"
+            alt="First slide"
+        /></a>
+      </div>
+      <div class="carousel-item">
+        <a [routerLink]="['hot-deals']" routerLinkActive="active"
+          ><img
+            class="d-block w-100"
+            src="https://s3-ap-southeast-1.amazonaws.com/pharmacity-ecm-asm-dev/main-banner-t8/921x280-pmc-covid-set-82021-11-11-2.webp"
+            alt="Third slide"
+        /></a>
+      </div>
+      <div class="carousel-item">
+        <a [routerLink]="['hot-deals']" routerLinkActive="active"
+          ><img
+            class="d-block w-100"
+            src="https://s3-ap-southeast-1.amazonaws.com/pharmacity-ecm-asm-dev/main-banner-t8/921x280-web-ban-82021-03-2.webp"
+            alt="Second slide"
+        /></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FROM DATABASE-->
+<div class="container py-2 mt-2" *ngFor="let drugGroup of drugGroups">
+  <h2
+    class="text-center font-weight-bold py-2"
+    style="color: #242a61; text-transform: uppercase"
+  >
+    THUỐC {{ drugGroup.drugGroupName }}
+  </h2>
+  <div class="row pt-2">
+    <ng-container
+      *ngFor="
+        let drug of getDrugByDrugGroup(drugGroup.drugGroupName) | slice: 0:4;
+        index as i
+      "
+    >
+      <div class="col-lg-3 col-md-6 col-6 col-sm-6 mb-4 mb-lg-5">
+        <div class="hovereffect">
+          <img
+            class="img-responsive"
+            width="255"
+            height="250"
+            src="{{ drug.drugImageDetails }}"
+            alt=""
+          />
+          <div class="overlay d-flex align-items-center justify-content-center">
+            <div *ngIf="drug.drugAmount == 0; else elseBlockAmount">
+              <a
+                class="info"
+                style="
+                  border-radius: 8px;
+                  margin-top: 5px;
+                  background-color: indianred;
+                "
+                disabled
+                >HẾT HÀNG</a
+              >
+            </div>
+            <ng-template #elseBlockAmount>
+              <a
+                class="info"
+                style="
+                  border-radius: 8px;
+                  margin-top: 5px;
+                  background-color: #567fea;
+                  cursor: pointer;
+                "
+                (click)="addCart(drug.drugId, drug.drugName)"
+                >THÊM VÀO GIỎ</a
+              >
+            </ng-template>
+          </div>
+          <div class="align-content-center pt-3">
+            <h4 class="text-dark font-weight-bold">{{ drug.drugName }}</h4>
+            <div *ngIf="drug.drugAmount == 0; else elseBlockPrice">
+              <h3 class="text-danger">HẾT HÀNG</h3>
+            </div>
+            <ng-template #elseBlockPrice>
+              <h3 class="text-dark">
+                Giá: {{ drug.wholesalePrice | number: "1.0-0" }} VND /
+                {{ drug.unit }}
+              </h3>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <button
+    type="button"
+    [routerLink]="['drug-view-by-drug-group', drugGroup.drugGroupName]"
+    routerLinkActive="active"
+    class="btn drug-group-toggle btn-lg btn-block"
+    style="text-transform: uppercase"
+  >
+    XEM THÊM THUỐC {{ drugGroup.drugGroupName }}
+  </button>
+</div>
+<!--END FROM DATABASE-->
+<div class="container">
+  <img
+    src="http://www.yersinclinic.com/uploads/attachments/Banner%20basement_H%C3%ACnh%20nghi%C3%AAm%20t%C3%BAc_5.jpg"
+    class="img-fluid"
+    alt="Responsive image"
+  />
+</div>

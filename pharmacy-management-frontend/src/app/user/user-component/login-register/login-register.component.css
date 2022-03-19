@@ -1,0 +1,174 @@
+.to-card {
+  /*position: absolute;*/
+  border-radius: 10px;
+  width: 350px;
+  height: 450px;
+  overflow: hidden;
+  perspective: 1000px;
+
+}
+
+.to-inner-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.to-text {
+  margin: 15px 0 5px 57px;
+  color: black;
+
+}
+
+.to-social-icons {
+  magin: 30px auto;
+  text-align: center;
+}
+
+.to-social-icons img {
+  width: 30px;
+  magin: 0 12px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.to-social-icons img:hover {
+  width: 35px;
+}
+
+.to-card-front, .to-card-back {
+  border-radius: 10px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background: white;
+
+  padding: 0px 55px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+.to-card-front {
+  padding-top: 25px;
+}
+
+.to-card-back {
+
+  transform: rotateY(180deg);
+}
+
+.to-card h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.to-div-input{
+  padding-bottom: 20px;
+  position: relative;
+
+}
+.to-input-box {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #030103;
+  magin-top: 10px;
+  margin-bottom: 5px;
+  height: 32px;
+  border-radius: 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  outline: none;
+  text-align: center;
+  color: #060206;
+}
+
+::placeholder {
+  color: #0b0b0b;
+  font-size: 12px;
+}
+
+.to-error-text {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  color: #9f0f0e;
+  font-size: 12px;
+  margin-left: 20px;
+}
+.to-error-sign{
+  top: 52px;
+}
+
+
+
+
+.to-sign-submit {
+  width: 100%;
+  background: transparent;
+  height: 32px;
+  border-radius: 50px;
+  position: relative;
+
+  background: rgba(36,42,97,1);
+  color: white;
+}
+
+.to-sign-submit:hover {
+
+  background: rgba(36,42,97,0.8);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 4px 12px;
+}
+
+.to-sign-submit::after {
+  color: #333;
+  line-height: 32px;
+  font-size: 17px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+
+}
+
+span {
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+.to-card .change {
+  magin-top: 70px;
+}
+.to-change{
+  width: 100%;
+  background: transparent;
+  height: 32px;
+  border-radius: 58px;
+  background: rgba(36,42,97,1);
+  color: white;
+}
+.to-change:hover {
+  background: rgba(36,42,97,0.8);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 4px 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

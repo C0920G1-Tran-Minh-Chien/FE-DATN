@@ -1,0 +1,92 @@
+<div id="content" class="container ">
+  <br>
+  <div>
+    <h2>Nhóm Thuốc</h2>
+
+  </div>
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Danh Sách Nhóm Thuốc</legend>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th style="background: #567FEA; color: white">Mã Nhóm Thuốc</th>
+        <th style="background: #567FEA; color: white">Tên Nhóm Thuốc</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let d of drugGroups" role="button" (click)="color(d.drugGroupId);getObj(d)"
+          [class.selected]="err? null: d.drugGroupId === drugGroupIdColor">
+        <td>{{d.drugGroupCode}}</td>
+        <td>{{d.drugGroupName}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="previous()" >Trước</a></li>
+          <li class="page-item" *ngFor="let p of pages; let i=index"><a class="page-link"
+                                                                        (click)="setPage(i)" [style]="(page == i) ? 'background: #63B8FF; color: white': ''">{{i + 1}} </a></li>
+          <li class="page-item"><a class="page-link" (click)="next()" >Sau</a></li>
+        </ul>
+      </nav>
+    </div>
+  </fieldset>
+  <form [formGroup]="drugGroupForm" #formGroupRef="ngForm">
+  <div class="mt-1 pt-1">
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Thông Tin Nhóm Thuốc</legend>
+
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="mb-2 mt-4 col-5">
+            <label class="label-text">Mã Nhóm Thuốc</label>
+            <div class="d-flex">
+              <input class="thuoc form-control" type="text" [(ngModel)]="code" formControlName="drugGroupCode" id="code" readonly>
+<!--              <span class="ml-1 mt-2" style="color: red">(*)</span>-->
+
+            </div>
+
+          </div>
+
+          <div class="mb-2 mt-4 col-5">
+            <label class="label-text ">Tên Nhóm Thuốc</label>
+            <div class="d-flex">
+              <input class="thuoc form-control"  id="name" formControlName="drugGroupName" type="text" *ngIf="!err">
+              <input class="thuoc form-control" [(ngModel)]="name" formControlName="drugGroupName" type="text" *ngIf="err">
+              <span class="ml-1 mt-2" style="color: red">(*)</span>
+            </div>
+            <div *ngIf="!drugGroupName.valid && (drugGroupName.dirty || drugGroupName.touched || formGroupRef.submitted) ">
+              <div [hidden]="!drugGroupName.errors.required">
+                <p style="color: red">Tên nhóm thuốc không được để trống.</p>
+              </div>
+              <div [hidden]="!drugGroupName.errors.maxlength">
+                <p style="color: red">Nhập sai vui lòng nhập lại.chiều dài tối da là 30 kí tự.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </fieldset>
+  </div>
+  <div>
+    <div class="d-flex justify-content-end pt-4 pb-5">
+      <button class="mr-3 btn btn btn-create" type="submit" (click)="create()">
+        <i class="fa fa-plus" aria-hidden="true"></i>Thêm
+      </button>
+      <button class="mr-3 btn btn-edit" style="background: #242a61;color: white" type="submit" (click)="update()">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa
+      </button>
+      <button class="mr-3 btn btn-danger" type="button" data-toggle="modal" data-target="#exampleModal"
+              (click)="onDeleteHandler()">
+        <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
+      </button>
+      <button class=" btn btn-back" style="background: #567FEA;color: white" type="button" routerLink="/">
+        <i class="icon-sidebar fa fa-reply"></i> Trở về
+      </button>
+    </div>
+  </div>
+  </form>
+</div>
+
+

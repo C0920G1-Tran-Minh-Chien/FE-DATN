@@ -1,0 +1,213 @@
+<!--<div class="d-flex" id="load" >-->
+<!--  <span id="load1" style="display: none" class="spinner-grow mx-1"></span>-->
+<!--  <span id="load2" style="display: none" class="spinner-grow mx-1"></span>-->
+<!--  <span id="load3" style="display: none" class="spinner-grow mx-1"></span>-->
+<!--  <span id="load4" style="display: none" class="spinner-grow mx-1"></span>-->
+<!--  <span id="load5" style="display: none" class="spinner-grow mx-1"></span>-->
+<!--</div>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div>
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Thời gian</legend>
+          <div class="d-flex">
+            <span
+              style="position: absolute; top: 33px; left: 20px; font-size: 14px"
+              >Theo:
+            </span>
+            <select
+              class="ml-4 w-100 form-control"
+              style="height: 33px"
+              (change)="choiceDate($event.target)"
+            >
+              <option disabled selected value="">Chọn</option>
+              <option value="week">Tuần</option>
+              <option value="month">Tháng</option>
+              <option value="year">Năm</option>
+            </select>
+            <select
+              *ngIf="isWeek"
+              class="ml-2 w-100 form-control"
+              style="height: 33px"
+              (change)="getWeek($event.target)"
+            >
+              <option value="" disabled selected>Chọn</option>
+              <option
+                *ngFor="let i of weekArray; let j = index"
+                value="{{ j + 1 }}"
+              >
+                {{ j + 1 }}
+              </option>
+            </select>
+
+            <select
+              *ngIf="isWeek"
+              class="ml-2 w-100 form-control"
+              style="height: 33px"
+              (change)="getYearOfWeek($event.target)"
+            >
+              <option value="" disabled selected>Chọn</option>
+              <option
+                *ngFor="let i of yearArray; let j = index"
+                value="{{ j + 2020 }}"
+              >
+                {{ j + 2020 }}
+              </option>
+            </select>
+            <input
+              type="month"
+              placeholder="MM/YYYY"
+              class="ml-2 w-100 form-control"
+              style="height: 33px"
+              *ngIf="isMonth"
+              (change)="getMonth($event.target)"
+            />
+            <select
+              *ngIf="isYear"
+              class="ml-2 w-100 form-control"
+              style="height: 33px"
+              (change)="getYear($event.target)"
+            >
+              <option value="" disabled selected>Chọn</option>
+              <option
+                *ngFor="let i of yearArray; let j = index"
+                value="{{ j + 2020 }}"
+              >
+                {{ j + 2020 }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <p style="color: red" *ngIf="!isSuccess" class="my-2">
+              {{ msgDate }}
+            </p>
+            <p *ngIf="isSuccess" class="my-2">- {{ msgDate }}</p>
+
+            <div class="text-right">
+              <button
+                class="btn btn-search button"
+                [style]="isLoad ? 'display:inline' : 'display:none'"
+              >
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span> Loading...</span>
+              </button>
+              <button
+                *ngIf="!isLoad"
+                class="btn btn-search button"
+                (click)="showChart()"
+              >
+                <i class="fa fa-area-chart"> Xem</i>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div style="position: relative">
+        <fieldset class="scheduler-border" style="height: 300px">
+          <legend class="scheduler-border">Báo cáo chi tiết</legend>
+          <div class="d-flex py-3" *ngIf="isShowChart">
+            <div class="col-5">Doanh thu</div>
+            <div class="col-7">
+              <input
+                readonly
+                style="height: 33px; background-color: white"
+                class="w-100 text-right form-control"
+                type="text"
+                value="{{ turnoverF }} ₫"
+              />
+            </div>
+          </div>
+          <div class="d-flex py-3" *ngIf="isShowChart">
+            <div class="col-5">Lợi nhuận</div>
+            <div class="col-7">
+              <input
+                style="height: 33px; background-color: white"
+                readonly
+                class="w-100 text-right form-control"
+                type="text"
+                value="{{ profitF }} ₫"
+              />
+            </div>
+          </div>
+          <div class="d-flex py-3" *ngIf="isShowChart">
+            <div class="col-5">Doanh thu TB</div>
+            <div class="col-7">
+              <input
+                style="height: 33px; background-color: white"
+                readonly
+                class="w-100 text-right form-control"
+                type="text"
+                value="{{ averageTurnoverF }} ₫"
+              />
+            </div>
+          </div>
+          <div class="d-flex py-3" *ngIf="isShowChart">
+            <div class="col-5">Lợi Nhuận TB</div>
+            <div class="col-7">
+              <input
+                style="height: 33px; background-color: white"
+                readonly
+                value="{{ averageProfitF }} ₫"
+                class="w-100 text-right form-control"
+                type="text"
+              />
+            </div>
+          </div>
+          <p
+            *ngIf="!isShowChart"
+            style="position: absolute; top: 100px; left: 170px"
+          >
+            Không tìm thấy dữ liệu.
+          </p>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Biểu đồ</legend>
+        <div *ngIf="isShowChart" style="margin: 31.5px 0">
+          <apx-chart
+            id="chart"
+            style="z-index: 2"
+            [series]="chartOption.series"
+            [chart]="chartOption.chart"
+            [xaxis]="chartOption.xaxis"
+            [stroke]="chartOption.stroke"
+            [tooltip]="chartOption.tooltip"
+            [dataLabels]="chartOption.dataLabels"
+            [title]="chartOption.title"
+          ></apx-chart>
+        </div>
+        <div *ngIf="!isShowChart" style="position: relative; height: 428px">
+          <!--          <button class="btn btn-light" type="button" disabled-->
+          <!--                  [style]="isLoad?'display:block':'display:none'"-->
+          <!--                  style="position: absolute;top: 230px;left: 165px; z-index: 100000000">-->
+          <!--            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
+          <!--            Loading...-->
+          <!--          </button>-->
+          <p style="position: absolute; top: 200px; left: 160px">
+            Không tìm thấy dữ liệu.
+          </p>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="text-right">
+    <a href="/report">
+      <button class="btn btn-search button">
+        <i class="fa fa-reply"></i> Trở về
+      </button>
+    </a>
+  </div>
+  <br />
+</div>
+
+<!--<mat-spinner></mat-spinner>-->

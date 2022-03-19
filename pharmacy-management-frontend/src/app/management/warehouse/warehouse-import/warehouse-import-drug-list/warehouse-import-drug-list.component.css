@@ -1,0 +1,225 @@
+
+
+/*td {background-color:#003399;}*/
+/*td:hover{background-color:#00FF66;}*/
+/*td:active{background-color:#FF0000;}*/
+.selected {
+  background: #567FEA !important;
+  color: white;
+}
+@media (max-width: 800px) {
+  .table thead {
+    display: none;
+  }
+
+  .table, .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+  }
+  .table th {
+    background-color:#567FEA ;
+  }
+
+  .table td {
+    text-align: right;
+    padding-left: 50%;
+    text-align: right;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+fieldset.scheduler-border{
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow:0px 0px 0px 0px #000 ;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+legend.scheduler-border{
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width: inherit;
+  padding: 0 10px;
+  border-bottom: none;
+}
+
+
+html, body {
+  max-width: 100%;
+  max-height: 100%;
+  overflow-x: hidden;
+}
+body {
+  font-size: 14px;
+
+}
+input{
+  height: 33px;
+
+}
+input[type=text] {
+  border: 2px solid;
+  border-radius: 4px;
+  width: 150px;
+}
+
+table {
+  border: 1px black;
+}
+
+input[type=date] {
+  border: 2px solid ;
+  border-radius: 4px;
+  width: 150px;
+}
+input[type=time] {
+  border: 2px solid ;
+  border-radius: 4px;
+  width: 150px
+}
+
+select {
+  border: 2px solid ;
+  border-radius: 4px;
+
+}
+
+
+label {
+  min-width: 75px;
+  justify-content: flex-end;
+
+}
+
+textarea {
+  border: 2px solid #2FC1A6;
+  border-radius: 4px;
+  width: 300px;
+  height: 75px;
+}
+
+.back {
+  background-color: #567FEA;
+  color: white
+}
+
+.head {
+  color: white;
+  background-color: #567FEA;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #567FEA;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+/*.scroll::-webkit-scrollbar {*/
+/*  width: 12px;*/
+/*}*/
+
+/*.scroll::-webkit-scrollbar-track {*/
+/*  background: white;*/
+/*}*/
+
+/*.scroll::-webkit-scrollbar-thumb {*/
+/*  background-color: #567FEA;*/
+/*  border-radius: 20px;*/
+/*  border: 3px solid white;*/
+/*}*/
+
+/*.scroll {*/
+/*  height: 300px;*/
+/*  overflow: auto;*/
+
+/*}*/
+#content {
+  box-shadow: 3px 3px 3px 3px #5f6062;
+}
+fieldset.scheduler-border {
+  border: 1px groove !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow: 0px 0px 0px 0px #000;
+  box-shadow:  0px 0px 0px 0px #000;
+}
+legend.scheduler-border {
+  font-size: 20px !important;
+  font-weight: normal !important;
+  text-align: left !important;
+  width: inherit;
+  padding: 0 15px;
+  border-bottom: none;
+}
+
+
+/*.outer {*/
+/*  overflow-y: auto;*/
+/*  height: 300px;*/
+/*  width: 100%;*/
+
+/*}*/
+
+
+/*.outer th{*/
+/*  text-align: left;*/
+/*  top: 0;*/
+/*  position: sticky;*/
+/*  background-color: #567FEA;*/
+/*}*/
+
+.button:hover {
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #2C4361;
+}
+.btn-return:hover {
+  background-color: #506AEA;
+}
+
+
+.btn-create {
+  background-color: #2fc1a6;
+  color: white;
+}
+.btn-edit {
+  background-color: #242a61;
+  color: white;
+}
+
+.btn-return{
+  background-color: #567FEA;
+  color: white;
+}
+.width{
+  width: 137px;
+  height: 33px;
+}
+.btw{
+  width: 100px;
+}

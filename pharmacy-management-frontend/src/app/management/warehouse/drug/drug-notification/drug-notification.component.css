@@ -1,0 +1,14 @@
+.btn-return{
+  background-color: #567FEA;
+  color: white;
+}
+.button{
+  width: 80px;
+  height: 33px;
+}
+.button:hover {
+  color: white;
+}
+.btn-return:hover {
+  background-color: #506AEA;
+}
